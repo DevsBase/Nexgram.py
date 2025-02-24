@@ -13,7 +13,7 @@ setup(
   description="A brief description of your package",
   long_description=open("README.md").read(),
   long_description_content_type="text/markdown",
-  url="https://github.com/yourusername/yourrepository",
+  url="https://github.com/Otazuki004/Nexgram.py",
   classifiers=[
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",

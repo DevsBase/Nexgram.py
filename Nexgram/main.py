@@ -3,3 +3,6 @@ def hello():
 
 def start():
   print("Start what?")
+
+def kill():
+  print("Your computer is hacked now 😂😂")

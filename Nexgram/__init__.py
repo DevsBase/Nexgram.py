@@ -1,1 +1,1 @@
-from .main import hello, start
+from .main import *

@@ -6,3 +6,6 @@ def start():
 
 def kill():
   print("Your computer is hacked now 😂😂")
+
+def help():
+  print("Cry baby 😂")

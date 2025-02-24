@@ -2,11 +2,10 @@ from setuptools import setup, find_packages
 
 setup( 
   name="Nexgram.py",
-  version="0.0.1",
+  version="0.0.2",
   packages=find_packages(),
   install_requires=[
-    # List your dependencies here,e.g. 
-    # "requests>=2.25.1",
+    "aiofiles>=24.1.0",
   ],
   author="Otazuki",
   author_email="otazuki004@gmail.com",

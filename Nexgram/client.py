@@ -23,7 +23,7 @@ class Client:
     self.bot_token = bot_token
     self.session_string = session_string
     self.auth_key = None
-    self.socket = Connection("149.154.167.50", 443)
+    self.socket = Connection("91.108.56.165", 443)
 
   async def connect(self):
     await self.socket.connect()

@@ -1,1 +1,1 @@
-from .connection import *p
+from .connection import Connection

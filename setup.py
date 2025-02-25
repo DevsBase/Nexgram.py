@@ -2,11 +2,12 @@ from setuptools import setup, find_packages
 
 setup( 
   name="Nexgram.py",
-  version="0.0.13",
+  version="0.0.14",
   packages=find_packages(),
   install_requires=[
     "aiofiles>=24.1.0",
-    "httpx>=0.26.0",
+    "httpx",
+    "aiohttp"
   ],
   author="Otazuki",
   author_email="otazuki004@gmail.com",

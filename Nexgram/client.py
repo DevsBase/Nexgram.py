@@ -42,17 +42,18 @@ class Client(Methods):
             if "result" in updates:
               for update in updates["result"]:
                 self.offset = update["update_id"] + 1
-                asyncio.create_task(self.dispatch_update(update))
+                asyncio.create_task(self.__dispatch_update(update))
       except Exception as e:
         log.error(f"Error in start_polling: {e}")
       await asyncio.sleep(1)
 
-  async def dispatch_update(self, update):
+  async def __dispatch_update(self, update):
     for x in self.on_listeners:
       asyncio.create_task(x(update))
 
   def on(self, func):
     self.on_listeners.append(func)
+  
   async def stop(self):
     self.polling = False
     self.connected = False

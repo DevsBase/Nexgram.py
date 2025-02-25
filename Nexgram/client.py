@@ -2,10 +2,11 @@ import logging
 import httpx
 import aiohttp
 import asyncio
+from .methods import *
 
 log = logging.getLogger(__name__)
 
-class Client:
+class Client(Methods):
   def __init__(self, name: str, bot_token: str):
     self.name = name
     self.bot_token = bot_token

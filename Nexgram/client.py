@@ -14,6 +14,7 @@ class Client(Methods):
     self.me = None
     self.on_listeners = []
     self.offset = 0
+    self.polling = False
 
   async def start(self):
     url = f"https://api.telegram.org/bot{self.bot_token}/getMe"
@@ -23,14 +24,14 @@ class Client(Methods):
         self.connected = True
         self.me = r["result"]
         log.info(f"Client connected as {self.me['first_name']} (@{self.me['username']})")
-        asyncio.create_task(self.start_polling())
-        log.info("Started polling!")
         return r
       raise ValueError("Failed to connect with your bot token. Please make sure your bot token is correct.")
 
   async def start_polling(self):
     if not self.connected:
       raise ConnectionError("Client is not connected. Please connect the client and start polling.")
+    self.polling = True
+    log.info("Nexgram polling started!")
     while True:
       try:
         async with aiohttp.ClientSession() as session:

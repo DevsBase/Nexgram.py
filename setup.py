@@ -2,10 +2,11 @@ from setuptools import setup, find_packages
 
 setup( 
   name="Nexgram.py",
-  version="0.0.4",
+  version="0.0.5",
   packages=find_packages(),
   install_requires=[
     "aiofiles>=24.1.0",
+    "pycryptodome>=3.20.0",
   ],
   author="Otazuki",
   author_email="otazuki004@gmail.com",

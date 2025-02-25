@@ -30,6 +30,7 @@ class Client(Methods):
   async def start_polling(self):
     if not self.connected:
       raise ConnectionError("Client is not connected. Please connect the client and start polling.")
+    elif self.polling: raise "Polling already started, why you trying again and again? didn't you receive any updates?"
     self.polling = True
     log.info("Nexgram polling started!")
     while True:

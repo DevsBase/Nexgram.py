@@ -33,7 +33,7 @@ class Client(Methods):
     elif self.polling: raise "Polling already started, why you trying again and again? didn't you receive any updates?"
     self.polling = True
     log.info("Nexgram polling started!")
-    while True:
+    while self.polling:
       try:
         async with aiohttp.ClientSession() as session:
           params = {"offset": self.offset, "timeout": 30}
@@ -53,3 +53,7 @@ class Client(Methods):
 
   def on(self, func):
     self.on_listeners.append(func)
+  async def stop(self):
+    self.polling = False
+    self.connected = False
+    log.info("Client stopped.")

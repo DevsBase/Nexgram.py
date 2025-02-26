@@ -63,7 +63,6 @@ class Client(Methods):
 
   def on(self, func):
     self.on_listeners.append(func)
-  
   async def stop(self):
     self.polling = False
     self.connected = False

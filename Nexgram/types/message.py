@@ -1,6 +1,5 @@
 import json
 from Nexgram.errors import *
-from Nexgram import Client
 
 class Message:
   def __init__(
@@ -12,6 +11,8 @@ class Message:
     text: str = None,
   ):
     from Nexgram.types import User, Chat
+    from Nexgram import Client
+    
     if not isinstance(from_user, User): raise InvalidObject("You should pass 'Nexgram.types.User' object in 'from_user' argument not others.")
     if not isinstance(chat, Chat): raise InvalidObject("You should pass 'Nexgram.types.Chat' object in 'chat' argument not others.")
     if not isinstance(client, Client): raise InvalidObject("You should pass 'Nexgram.Client' object in 'client' argument not others")

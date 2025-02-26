@@ -4,6 +4,7 @@ import aiohttp
 import asyncio
 from .methods import *
 from .errors import *
+from .types import *
 
 log = logging.getLogger(__name__)
 
@@ -20,6 +21,7 @@ class Client(Methods):
     self.on_listeners = []
     self.offset = 0
     self.polling = False
+    self.on_message_listeners = []
 
   async def start(self, start_polling=False):
     url = f"https://api.telegram.org/bot{self.bot_token}/getMe"
@@ -64,9 +66,18 @@ class Client(Methods):
   async def __dispatch_update(self, update):
     for x in self.on_listeners:
       asyncio.create_task(x(update))
+    if update.get('message'):
+      m = update.get('message')
+      frm = m.get('from')
+      from_user = User(frm['id'], frm['first_name'], username=frm.get('username'))
+      message = Message(m['id'], from_user, text=m.get('text'))
+      for x in self.on_message_listeners:
+        asyncio.create_task(x(message))
 
   def on(self, func):
     self.on_listeners.append(func)
+  def on_message(self, fk):
+    self.on_message_listeners.append(fk)
   async def stop(self):
     self.polling = False
     self.connected = False

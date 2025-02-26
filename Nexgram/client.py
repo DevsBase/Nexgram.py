@@ -61,7 +61,6 @@ class Client(Methods):
                 asyncio.create_task(self.__dispatch_update(update))
       except Exception as e:
         log.error(f"Error in start_polling: {e}")
-      await asyncio.sleep(0.5)
 
   async def __dispatch_update(self, update):
     for x in self.on_listeners:

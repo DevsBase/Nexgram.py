@@ -4,12 +4,19 @@ class Chat:
   def __init__(
     self,
     id: int,
-    title: str,
+    title: str = None,
+    first_name: str = None,
+    last_name: str = None,
     type: str = None,
     username: str = None,
   ):
     self.id = id
-    self.title = title
+    if not self.title:
+      if not self.first_name: 
+        raise Exception("You didn't passed title or first_name, you should pass any of them.")
+      self.first_name = first_name
+      self.last_name = last_name
+    else: self.title = title
     self.type = type
     if username: self.username = username
   

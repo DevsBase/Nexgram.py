@@ -71,7 +71,14 @@ class Client(Methods):
         frm = m.get('from')
         ch = m.get('chat')
         from_user = User(frm['id'], frm['first_name'], username=frm.get('username'))
-        chat = Chat(ch['id'], ch['title'], ch.get('type'), ch.get('username'))
+        chat = Chat(
+          id=ch['id'],
+          title=ch.get('title'),
+          first_name=ch.get('first_name'),
+          last_name=ch.get('last_name'),
+          type=ch.get('type'),
+          username=ch.get('username')
+        )
         message = Message(m['message_id'], from_user, chat, text=m.get('text'))
         
         for x in self.on_message_listeners:

@@ -3,6 +3,7 @@ import httpx
 import aiohttp
 import asyncio
 from .methods import *
+from .errors import *
 
 log = logging.getLogger(__name__)
 
@@ -16,7 +17,7 @@ class Client(Methods):
     self.offset = 0
     self.polling = False
 
-  async def start(self):
+  async def start(self, start_polling=False):
     url = f"https://api.telegram.org/bot{self.bot_token}/getMe"
     async with httpx.AsyncClient() as client:
       r = (await client.get(url)).json()
@@ -24,13 +25,21 @@ class Client(Methods):
         self.connected = True
         self.me = r["result"]
         log.info(f"Client connected as {self.me['first_name']} (@{self.me['username']})")
+        if start_polling:
+          try:
+            loop = asyncio.get_running_loop()
+          except RuntimeError:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+          loop.create_task(self.start_polling())
+          log.info("Exp. Feature Started: Loop created.")
         return r
       raise ValueError("Failed to connect with your bot token. Please make sure your bot token is correct.")
 
   async def start_polling(self):
     if not self.connected:
       raise ConnectionError("Client is not connected. Please connect the client and start polling.")
-    elif self.polling: raise "Polling already started, why you trying again and again? didn't you receive any updates?"
+    elif self.polling: raise PollingAlreadyStartedError("Polling already started, why you trying again and again? didn't you receive any updates?")
     self.polling = True
     log.info("Nexgram polling started!")
     while self.polling:
@@ -45,7 +54,7 @@ class Client(Methods):
                 asyncio.create_task(self.__dispatch_update(update))
       except Exception as e:
         log.error(f"Error in start_polling: {e}")
-      await asyncio.sleep(1)
+      await asyncio.sleep(0.5)
 
   async def __dispatch_update(self, update):
     for x in self.on_listeners:

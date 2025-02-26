@@ -72,7 +72,7 @@ class Client(Methods):
         ch = m.get('chat')
         from_user = User(frm['id'], frm['first_name'], username=frm.get('username'))
         chat = Chat(ch['id'], ch['title'], ch.get('type'), ch.get('username'))
-        message = Message(m['message_id'], from_user, text=m.get('text'))
+        message = Message(m['message_id'], from_user, chat, text=m.get('text'))
         
         for x in self.on_message_listeners:
           asyncio.create_task(x(message))

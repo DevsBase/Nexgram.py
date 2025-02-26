@@ -1,2 +1,3 @@
 from .client import *
-from setup import __version__
+
+__version__ = '0.0.20'

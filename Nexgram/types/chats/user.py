@@ -13,8 +13,5 @@ class User:
     if last_name: self.last_name = last_name
     if username: self.username = username
   
-  def __str__(self):
-    return json.dumps(self.__dict__, indent=2, ensure_ascii=False)
-    
   def __repr__(self):
     return json.dumps(self.__dict__, indent=2, ensure_ascii=False)

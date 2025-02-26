@@ -69,16 +69,22 @@ class Client(Methods):
       try:
         m = update.get('message')
         frm = m.get('from')
+        ch = m.get('chat')
         from_user = User(frm['id'], frm['first_name'], username=frm.get('username'))
+        chat = Chat(ch['id'], ch['title'], ch.get('type'), ch.get('username'))
         message = Message(m['message_id'], from_user, text=m.get('text'))
+        
         for x in self.on_message_listeners:
           asyncio.create_task(x(message))
       except Exception as e:
         log.error(f"Line 68 Nexgram.client: {e}, message: {m}")
+  
   def on(self, func):
     self.on_listeners.append(func)
+  
   def on_message(self, fk):
     self.on_message_listeners.append(fk)
+  
   async def stop(self):
     self.polling = False
     self.connected = False

@@ -1,5 +1,4 @@
 import json
-from Nexgram.types import User
 from Nexgram.errors import *
 
 class Message:
@@ -9,6 +8,7 @@ class Message:
     from_user: "Nexgram.types.User",
     text: str = None,
   ):
+    from Nexgram.types import User
     if not isinstance(from_user, User): raise InvalidObject("You should pass User object in from_user not others.")
     self.id = id
     self.from_user = from_user

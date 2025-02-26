@@ -1,8 +1,10 @@
 from setuptools import setup, find_packages
 
+__version__ = '0.0.20'
+
 setup( 
   name="Nexgram.py",
-  version="0.0.19",
+  version=__version__,
   packages=find_packages(),
   install_requires=[
     "aiofiles>=24.1.0",

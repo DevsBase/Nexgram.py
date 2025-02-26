@@ -19,22 +19,23 @@ class Client(Methods):
 
   async def start(self, start_polling=False):
     url = f"https://api.telegram.org/bot{self.bot_token}/getMe"
-    async with httpx.AsyncClient() as client:
-      r = (await client.get(url)).json()
-      if r.get("ok"):
-        self.connected = True
-        self.me = r["result"]
-        log.info(f"Client connected as {self.me['first_name']} (@{self.me['username']})")
-        if start_polling:
-          try:
-            loop = asyncio.get_running_loop()
-          except RuntimeError:
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-          loop.create_task(self.start_polling())
-          log.info("Exp. Feature Started: Loop created.")
-        return r
-      raise ValueError("Failed to connect with your bot token. Please make sure your bot token is correct.")
+    async with aiohttp.ClientSession() as session:
+      async with session.get(url) as r:
+        r = r.json()
+        if r.get("ok"):
+          self.connected = True
+          self.me = r["result"]
+          log.info(f"Client connected as {self.me['first_name']} (@{self.me['username']})")
+          if start_polling:
+            try:
+              loop = asyncio.get_running_loop()
+            except RuntimeError:
+              loop = asyncio.new_event_loop()
+              asyncio.set_event_loop(loop)
+            loop.create_task(self.start_polling())
+            log.info("Exp. Feature Started: Loop created.")
+          return r
+        raise ValueError("Failed to connect with your bot token. Please make sure your bot token is correct.")
 
   async def start_polling(self):
     if not self.connected:

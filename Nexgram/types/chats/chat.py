@@ -11,8 +11,8 @@ class Chat:
     username: str = None,
   ):
     self.id = id
-    if not self.title:
-      if not self.first_name: 
+    if not title:
+      if not first_name: 
         raise Exception("You didn't passed title or first_name, you should pass any of them.")
       self.first_name = first_name
       self.last_name = last_name

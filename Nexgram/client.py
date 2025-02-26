@@ -80,7 +80,7 @@ class Client(Methods):
           username=ch.get('username')
         )
         message = Message(
-          client=nx,
+          client=self,
           id=m['message_id'],
           from_user=from_user,
           chat=chat,

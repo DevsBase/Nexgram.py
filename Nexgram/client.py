@@ -3,8 +3,6 @@ import httpx
 import aiohttp
 import asyncio
 from .methods import *
-from .errors import *
-from .types import *
 
 log = logging.getLogger(__name__)
 
@@ -14,6 +12,9 @@ class Client(Methods):
     name: str,
     bot_token: str,
   ):
+    from .errors import *
+    from .types import *
+
     self.name = name
     self.bot_token = bot_token
     self.connected = False

@@ -21,7 +21,7 @@ class Client(Methods):
     url = f"https://api.telegram.org/bot{self.bot_token}/getMe"
     async with aiohttp.ClientSession() as session:
       async with session.get(url) as r:
-        r = r.json()
+        r = await r.json()
         if r.get("ok"):
           self.connected = True
           self.me = r["result"]

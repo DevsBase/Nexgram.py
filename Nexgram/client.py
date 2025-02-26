@@ -67,13 +67,15 @@ class Client(Methods):
     for x in self.on_listeners:
       asyncio.create_task(x(update))
     if update.get('message'):
-      m = update.get('message')
-      frm = m.get('from')
-      from_user = User(frm['id'], frm['first_name'], username=frm.get('username'))
-      message = Message(m['id'], from_user, text=m.get('text'))
-      for x in self.on_message_listeners:
-        asyncio.create_task(x(message))
-
+      try:
+        m = update.get('message')
+        frm = m.get('from')
+        from_user = User(frm['id'], frm['first_name'], username=frm.get('username'))
+        message = Message(m['message_id'], from_user, text=m.get('text'))
+        for x in self.on_message_listeners:
+          asyncio.create_task(x(message))
+      except Exception as e:
+        log.error(f"Line 68 Nexgram.client: {e}, message: {m}")
   def on(self, func):
     self.on_listeners.append(func)
   def on_message(self, fk):

@@ -8,7 +8,12 @@ from .errors import *
 log = logging.getLogger(__name__)
 
 class Client(Methods):
-  def __init__(self, name: str, bot_token: str):
+  def __init__(
+    self,
+    name: str,
+    bot_token: str,
+    parse_mode: str = "MarkdownV2"
+  ):
     self.name = name
     self.bot_token = bot_token
     self.connected = False
@@ -16,6 +21,7 @@ class Client(Methods):
     self.on_listeners = []
     self.offset = 0
     self.polling = False
+    self.global_parse_mode = parse_mode
 
   async def start(self, start_polling=False):
     url = f"https://api.telegram.org/bot{self.bot_token}/getMe"

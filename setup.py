@@ -14,7 +14,7 @@ setup(
   install_requires=requires,
   author="Otazuki",
   author_email="otazuki004@gmail.com",
-  description="just a try :)",
+  description="just a try",
   long_description=open("README.md").read(),
   long_description_content_type="text/markdown",
   url="https://github.com/Otazuki004/Nexgram.py",
@@ -23,5 +23,5 @@ setup(
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
   ],
-  python_requires='>=3.6',
+  python_requires='>=3.1',
 )

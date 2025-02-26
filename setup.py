@@ -9,7 +9,7 @@ with open("Nexgram/__init__.py", encoding="utf-8") as fk:
 
 setup( 
   name="Nexgram.py",
-  version=__version__,
+  version=version,
   packages=find_packages(),
   install_requires=requires,
   author="Otazuki",

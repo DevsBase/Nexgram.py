@@ -32,5 +32,6 @@ class Message:
     await client.send_message(
       chat_id=self.chat.id,
       text=text,
+      reply_to_message_id=self.id,
       parse_mode=parse_mode,
     )

@@ -24,12 +24,14 @@ class Message:
     self.client = client
   
   def __repr__(self):
+    mf = ["client"]
+    data = {k: v for k, v in self.__dict__.items() if k not in mf}
     return json.dumps(
-      self.__dict__,
+      data,
       indent=2,
       ensure_ascii=False,
       default=lambda o: repr(o) if isinstance(repr(o), str) else str(o)
-    )  
+    )
     
   async def reply(self, text: str, parse_mode: str = None):
     client = self.client

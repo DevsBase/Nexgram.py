@@ -32,7 +32,7 @@ class Client(Methods):
           self.connected = True
           r = r["result"]
           self.me = User(r['id'], r['first_name'], username=r['username'])
-          log.info(f"Client connected as {self.me['first_name']} (@{self.me['username']})")
+          log.info(f"Client connected as {self.me.first_name} (@{self.me.username})")
           if start_polling:
             try:
               loop = asyncio.get_running_loop()

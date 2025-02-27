@@ -19,4 +19,4 @@ class sendMessage:
           error = z.get('description').split(':', 1)[1]
           if 'bad request' in error_type.lower():
             raise BadRequest(error)
-        return await z.json()
+        return z

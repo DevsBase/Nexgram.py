@@ -8,6 +8,7 @@ class Message:
     id: int,
     from_user: "Nexgram.types.User",
     chat: "Nexgram.types.Chat",
+    reply_to_message: "Nexgram.types.Message",
     text: str = None,
   ):
     from Nexgram.types import User, Chat
@@ -17,9 +18,14 @@ class Message:
     if not isinstance(chat, Chat): raise InvalidObject("You should pass 'Nexgram.types.Chat' object in 'chat' argument not others.")
     if not isinstance(client, Client): raise InvalidObject("You should pass 'Nexgram.Client' object in 'client' argument not others")
     
+    self._ = "Nexgram.types.Message"
     self.id = id
     self.from_user = from_user
     self.chat = chat
+    if reply_to_message:
+      if not isinstance(reply_to_message, self):
+        raise InvalidObject("You should pass 'Nexgram.Client.Message' object in 'reply_to_message' argument not others")
+      self.reply_to_message = reply_to_message
     self.text = text
     self.client = client
   

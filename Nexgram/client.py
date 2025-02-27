@@ -92,16 +92,22 @@ class Client(Methods):
           type=ch.get('type'),
           username=ch.get('username')
         )
+        reply_to_message = None
+        if m.get('reply_to_message'):
+          reply_to_message = Message()
+          while True:
+            
         message = Message(
           client=self,
           id=m['message_id'],
           from_user=from_user,
           chat=chat,
+          reply_to_message=reply_to_message,
           text=m.get('text')
         )
         
         for x in self.on_message_listeners:
-          asyncio.create_task(x(message))
+          asyncio.create_task(x(self, message))
       except Exception as e:
         log.error(f"Line 68 Nexgram.client: {e}, message: {m}")
   

@@ -24,7 +24,7 @@ class Message:
     self.client = client
   
   def __repr__(self):
-    mf = ["ct"]
+    mf = ["client"]
     data = {k: v for k, v in self.__dict__.items() if k not in mf}
     return json.dumps(
       data,

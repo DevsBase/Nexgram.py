@@ -10,6 +10,7 @@ class Chat:
     type: str = None,
     username: str = None,
   ):
+    self._ = "Nexgram.types.Chat"
     self.id = id
     if not title:
       if not first_name: 

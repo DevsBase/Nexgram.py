@@ -10,6 +10,7 @@ class User:
     is_self: bool = False,
     is_bot: bool = False,
   ):
+    self._ = "Nexgram.types.User"
     self.id = id
     self.is_self = is_self
     self.is_bot = is_bot

@@ -31,7 +31,13 @@ class Client(Methods):
         if r.get("ok"):
           self.connected = True
           r = r["result"]
-          self.me = User(r['id'], r['first_name'], username=r['username'])
+          self.me = User(
+            r['id'],
+            r['first_name'],
+            username=r['username'],
+            is_self=True,
+            is_bot=True,
+          )
           log.info(f"Client connected as {self.me.first_name} (@{self.me.username})")
           if start_polling:
             try:
@@ -71,7 +77,13 @@ class Client(Methods):
         m = update.get('message')
         frm = m.get('from')
         ch = m.get('chat')
-        from_user = User(frm['id'], frm['first_name'], username=frm.get('username'))
+        from_user = User(
+          frm['id'],
+          frm['first_name'],
+          username=frm.get('username'),
+          is_bot=frm.get('is_bot'),
+          is_self=frm['id'] == self.me.id,
+        )
         chat = Chat(
           id=ch['id'],
           title=ch.get('title'),

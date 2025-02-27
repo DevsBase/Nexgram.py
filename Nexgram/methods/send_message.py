@@ -14,7 +14,9 @@ class sendMessage:
     url = f"https://api.telegram.org/bot{self.bot_token}/sendMessage"
     if not force_parse:
       if parse_mode=="HTML":
-        text = text.replace("\n", "<br>")
+        text = text.replace("<pre>", "```").replace("</pre>", "```")
+        text = text.replace("<b>", "*").replace('</b>', '')
+        parse_mode = "Markdown"
     data = {
       "chat_id": chat_id,
       "text": text,

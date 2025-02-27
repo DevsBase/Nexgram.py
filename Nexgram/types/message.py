@@ -24,8 +24,13 @@ class Message:
     self.client = client
   
   def __repr__(self):
-    return json.dumps(self.__dict__, indent=2, ensure_ascii=False, default=lambda o: json.loads(repr(o)))
-  
+    return json.dumps(
+      self.__dict__,
+      indent=2,
+      ensure_ascii=False,
+      default=lambda o: repr(o) if isinstance(repr(o), str) else str(o)
+    )  
+    
   async def reply(self, text: str, parse_mode: str = None):
     client = self.client
     if not client.connected: raise ConnectionError("Client is not connected, you must connect the client to send message.")

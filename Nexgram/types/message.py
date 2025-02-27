@@ -30,7 +30,7 @@ class Message:
       data,
       indent=2,
       ensure_ascii=False,
-      default=lambda o: o if isinstance(o, str) else repr(o)
+      default=lambda o: o if isinstance(o, (str, dict)) else repr(o)
     )
     
   async def reply(self, text: str, parse_mode: str = None):

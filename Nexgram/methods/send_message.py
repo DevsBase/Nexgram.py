@@ -13,7 +13,7 @@ class sendMessage:
     if reply_to_message_id: data["reply_to_message_id"] = reply_to_message_id
     async with aiohttp.ClientSession() as x:
       async with x.post(url, json=data) as z:
-        z = z.json()
+        z = await z.json()
         if not z.get('ok') and z.get('error_code'):
           error_type = z.get('description')
           error = z.get('description').split(':', 1)[1]

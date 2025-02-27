@@ -16,7 +16,7 @@ class sendMessage:
       if parse_mode=="HTML":
         text = text.replace("<pre>", "```").replace("</pre>", "```")
         text = text.replace("<b>", "*").replace('</b>', '')
-        parse_mode = "Markdown"
+        parse_mode = "MarkdownV2"
     data = {
       "chat_id": chat_id,
       "text": text,

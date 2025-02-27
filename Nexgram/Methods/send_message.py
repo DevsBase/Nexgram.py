@@ -8,15 +8,9 @@ class sendMessage:
     text,
     reply_to_message_id: int = None,
     parse_mode=None,
-    force_parse=False,
   ):
     if not self.connected: raise ConnectionError("Client is not connected, you must connect the client to send message.")
     url = f"https://api.telegram.org/bot{self.bot_token}/sendMessage"
-    if not force_parse:
-      if parse_mode=="HTML":
-        text = text.replace("<pre>", "```\n").replace("</pre>", "```")
-        text = text.replace("<b>", "*").replace('</b>', '')
-        parse_mode = "MarkdownV2"
     data = {
       "chat_id": chat_id,
       "text": text,

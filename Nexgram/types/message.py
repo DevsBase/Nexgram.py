@@ -48,3 +48,7 @@ class Message:
       reply_to_message_id=self.id,
       parse_mode=parse_mode,
     )
+  async def delete(self):
+    client, api, url = self.client, self.client.api, self.client.ApiUrl
+    if not client.connected: raise ConnectionError("Client is not connected, you must connect the client to delete message.")
+    return await api.post(url, {"chat_id": self.chat.id, "message_id": self.id})

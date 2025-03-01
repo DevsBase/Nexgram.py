@@ -5,7 +5,8 @@ import asyncio
 from .methods import *
 from .errors import *
 from .types import *
-    
+from .api import Api
+
 log = logging.getLogger(__name__)
 
 class Client(Methods):
@@ -22,6 +23,8 @@ class Client(Methods):
     self.offset = 0
     self.polling = False
     self.on_message_listeners = []
+    self.ApiUrl = f"https://api.telegram.org/bot{self.bot_token}/"
+    self.api = Api()
 
   async def start(self, start_polling=False):
     url = f"https://api.telegram.org/bot{self.bot_token}/getMe"
@@ -47,7 +50,7 @@ class Client(Methods):
               asyncio.set_event_loop(loop)
             loop.create_task(self.start_polling())
             log.info("Exp. Feature Started: Loop created.")
-          return r
+          return self.m
         raise ValueError("Failed to connect with your bot token. Please make sure your bot token is correct.")
 
   async def start_polling(self):

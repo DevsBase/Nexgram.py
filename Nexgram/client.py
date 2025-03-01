@@ -96,9 +96,6 @@ class Client(Methods):
           username=ch.get('username')
         )
         reply_to_message = None
-        if m.get('reply_to_message'):
-          reply_to_message = Message()
-          while True:
             
         message = Message(
           client=self,

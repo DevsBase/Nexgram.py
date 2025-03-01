@@ -4,7 +4,7 @@ import aiohttp
 class Api:
   async def post(self, url, json: dict = {}):
     async with aiohttp.ClientSession() as mano:
-      async with mano.post(url=url, json=data) as ily:
+      async with mano.post(url=url, json=json) as ily:
         z = await ily.json()
         return z
   async def get(self, url):

@@ -50,7 +50,7 @@ class Client(Methods):
               asyncio.set_event_loop(loop)
             loop.create_task(self.start_polling())
             log.info("Exp. Feature Started: Loop created.")
-          return self.m
+          return self.me
         raise ValueError("Failed to connect with your bot token. Please make sure your bot token is correct.")
 
   async def start_polling(self):

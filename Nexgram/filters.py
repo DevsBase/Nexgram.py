@@ -1,5 +1,6 @@
 import logging
 import inspect
+import asyncio
 
 log = logging.getLogger(__name__)
 
@@ -31,4 +32,4 @@ class Filter:
 def create(func):
   return type(func.__name__, (Filter,), {})(func)
   
-text = create(lambda _, message: message.text)
+text = create(lambda _, message: asyncio.run(message.reply("Text triggered")))

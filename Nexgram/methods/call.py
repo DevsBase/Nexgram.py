@@ -8,12 +8,12 @@ class Call:
     if data.get('filters'):
       for filter_func in list(data.get('filters')):
         if inspect.iscoroutinefunction(filter_func):
-          c = await filter_func(*args)
+          tasks.append(filter_func(*args))
         else:
-          c = await asyncio.to_thread(filter_func, *args)
-        tasks.append(c)
-      if all(tasks):
-        self.log.info(f"Line 16 call.py All={all(tasks)}\nTask={tasks}\nData={data}")
+          tasks.append(asyncio.to_thread(filter_func, *args))
+      fk = asyncio.gather(*tasks)
+      if all(fk):
+        self.log.info(f"Line 16 call.py All={all(tasks)}\nTask={tasks}\nData={data}\nfk={fk}")
         return await func(*args)
     else:
       return await func(*args)

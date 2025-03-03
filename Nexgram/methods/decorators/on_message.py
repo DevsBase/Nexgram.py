@@ -1,5 +1,5 @@
 class OnMessage:
-  def on_message(self, filters=None):
+  def on_message(self, *filters):
     if not isinstance(filter, (list, tuple)): filters = None
     def decorator(mano):
       if mano in self.on_message_listeners:

@@ -1,5 +1,5 @@
 class Dispatch:
-  async def __dispatch_update(self, update):
+  async def dispatch_update(self, update):
     for gf in self.on_listeners:
       asyncio.create_task(gf(update))
     if update.get('message'):

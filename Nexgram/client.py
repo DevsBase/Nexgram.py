@@ -71,7 +71,7 @@ class Client(Methods):
             if "result" in updates and not self.first_start:
               for update in updates["result"]:
                 self.offset = update["update_id"] + 1
-                asyncio.create_task(self.__dispatch_update(update))
+                asyncio.create_task(self.dispatch_update(update))
             elif "result" in updates and self.first_start: self.first_start = False
       except Exception as e:
         log.error(f"Error in start_polling: {e}")

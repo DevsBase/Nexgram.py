@@ -23,7 +23,9 @@ class sendMessage:
     if reply_to_message_id:
       data["reply_to_message_id"] = reply_to_message_id
     if reply_markup:
-    
+      if not isinstance(reply_markup, InlineKeyboardMarkup):
+        raise TypeError("You should pass 'Nexgram.types.InlineKeyboardMarkup' in reply_markup not others!")
+      data['reply_markup'] = reply_markup.read()
     z = await self.api.post(url, json=data)
     if not z.get('ok') and z.get('error_code'):
       error_type = z.get('description')

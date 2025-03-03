@@ -17,4 +17,10 @@ class InlineKeyboardMarkup:
           
     self.inline_keyboard = inline_keyboard
   def __repr__(self):
-    return json.dumps(self.__dict__, indent=2, ensure_ascii=False)
+    data = {k: v for k, v in self.__dict__.items()}
+    return json.dumps(
+      data,
+      indent=2,
+      ensure_ascii=False,
+      default=lambda o: o.__dict__ if hasattr(o, "__dict__") else o
+    )

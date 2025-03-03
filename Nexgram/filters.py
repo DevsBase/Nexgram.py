@@ -51,3 +51,4 @@ def user(id):
     urls = ["http://t.me/", "https://t.me/", "www.t.me/", "@", "http://telegram.dog/", "https://telegram.dog/"]  
     return any(id.replace(x, "") == m.from_user.username for x in urls)
   return create(wrapper)
+  

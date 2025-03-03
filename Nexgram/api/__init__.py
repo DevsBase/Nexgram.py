@@ -2,10 +2,16 @@
 import aiohttp
 
 class Api:
-  async def post(self, url, json: dict = {}):
+  async def post(self, url, json: dict = None, need_json=True):
     async with aiohttp.ClientSession() as mano:
       async with mano.post(url=url, json=json) as ily:
-        z = await ily.json()
-        return z
-  async def get(self, url):
-    pass
+        if need_json:
+          return await ily.json()
+        else: return await ily
+
+  async def get(self, url, params=None, need_json=True):
+    async with aiohttp.ClientSession() as mano:
+      async with mano.get(url=url, params=params) as ily:
+        if need_json:
+          return await ily.json()
+        else: return await ily

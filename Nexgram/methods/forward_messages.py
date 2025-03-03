@@ -3,6 +3,7 @@ import asyncio
 
 class ForwardMessages:
   async def forward_messages(self, chat_id: int, from_chat_id: int, id):
+    if not self.connected: raise ConnectionError("Client is not connected, you must connect the client to forward message.")
     if isinstance(id, int): id = [id]
     output = []
     for x in id:

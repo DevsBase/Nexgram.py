@@ -41,7 +41,6 @@ class Message:
     
   async def reply(self, text: str, reply_markup = None,parse_mode: str = None):
     client = self.client
-    if not client.connected: raise ConnectionError("Client is not connected, you must connect the client to send message.")
     await client.send_message(
       chat_id=self.chat.id,
       text=text,
@@ -51,5 +50,7 @@ class Message:
     )
   async def delete(self):
     client, api, url = self.client, self.client.api, self.client.ApiUrl
-    if not client.connected: raise ConnectionError("Client is not connected, you must connect the client to delete message.")
     return await api.post(url+"deleteMessage", {"chat_id": self.chat.id, "message_id": self.id})
+  async def forward(self, chat_id):
+    client, api, url = self.client, self.client.api, self.client.ApiUrl
+    return await client.forward_messages(chat_id, self.chat.id, self.id)

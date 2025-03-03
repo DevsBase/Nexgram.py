@@ -2,6 +2,8 @@ import logging
 import signal
 from signal import signal as signal_fn, SIGINT, SIGTERM, SIGABRT
 from .client import clients
+import asyncio
+
 log = logging.getLogger(__name__)
 
 signals = {

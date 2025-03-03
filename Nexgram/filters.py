@@ -32,4 +32,4 @@ class Filter:
 def create(func):
   return type(func.__name__, (Filter,), {})(func)
   
-text = create(lambda _, message: asyncio.run(message.reply("Text triggered")))
+text = create(lambda _, message: message.text)

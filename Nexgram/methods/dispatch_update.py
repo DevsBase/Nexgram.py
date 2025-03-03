@@ -1,3 +1,5 @@
+from Nexgram.client import *
+
 class Dispatch:
   async def dispatch_update(self, update):
     for gf in self.on_listeners:

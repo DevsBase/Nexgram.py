@@ -1,3 +1,6 @@
+import asyncio
+import inspect
+
 class Call:
   async def call(self, src, func, *args):
     if func not in src:

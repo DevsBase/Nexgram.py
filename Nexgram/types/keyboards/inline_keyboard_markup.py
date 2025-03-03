@@ -1,5 +1,5 @@
 import json
-from Nexgram.types import InlineKeyboardButton
+from .inline_keyboard_button import InlineKeyboardButton
 
 class InlineKeyboardMarkup:
   def __init__(self, inline_keyboard: List[List["types.InlineKeyboardButton"]]):

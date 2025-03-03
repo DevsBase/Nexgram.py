@@ -7,11 +7,11 @@ class Api:
       async with mano.post(url=url, json=json) as ily:
         if need_json:
           return await ily.json()
-        else: return await ily
+        else: return ily
 
   async def get(self, url, params=None, need_json=True):
     async with aiohttp.ClientSession() as mano:
       async with mano.get(url=url, params=params) as ily:
         if need_json:
           return await ily.json()
-        else: return await ily
+        else: return ily

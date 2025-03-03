@@ -25,7 +25,7 @@ class Client(Methods):
     self.api = Api()
     self.log = log
     # Decorators --
-    self.on_message_listeners = {}
+    self.on_message_listeners = []
     self.on_disconnect_listeners = {}
     self.on_listeners = {}
     

@@ -1,4 +1,6 @@
-from Nexgram.client import *
+from Nexgram.client import log
+from .errors import *
+from .types import *
 
 class Dispatch:
   async def dispatch_update(self, update):

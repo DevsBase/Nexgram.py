@@ -6,7 +6,7 @@ class Call:
     data = source.get(func)
     tasks = []
     if data.get('filters'):
-      for filter_func in data.get('filters'):
+      for filter_func in list(data.get('filters')):
         if inspect.iscoroutinefunction(filter_func):
           c = await filter_func(*args)
         else:

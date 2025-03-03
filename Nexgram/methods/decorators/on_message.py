@@ -1,6 +1,8 @@
 class OnMessage:
   def on_message(self, *filters):
     if not isinstance(filters, (list, tuple)): filters = None
+    else:
+      filters = list(filters)
     def decorator(mano):
       if mano in self.on_message_listeners:
         raise Exception("You have already used this same decorator, you cannot use it multipul times!")

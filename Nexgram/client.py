@@ -23,6 +23,7 @@ class Client(Methods):
     self.polling = False
     self.ApiUrl = f"https://api.telegram.org/bot{self.bot_token}/"
     self.api = Api()
+    self.log = log
     # Decorators --
     self.on_message_listeners = {}
     self.on_disconnect_listeners = {}

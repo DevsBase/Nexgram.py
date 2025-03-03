@@ -1,9 +1,9 @@
-from Nexgram.client import log
 from .errors import *
 from .types import *
 
 class Dispatch:
   async def dispatch_update(self, update):
+    log = self.log
     for gf in self.on_listeners:
       asyncio.create_task(gf(update))
     if update.get('message'):

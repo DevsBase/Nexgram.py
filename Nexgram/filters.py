@@ -40,5 +40,11 @@ text = create(lambda _, message: message.text)
 
 def command(cmd, prefix=['/']):
   async def wrapper(_, __, m):
-    return any(m.text.startswith(p) and m.text[len(p):].startswith(cmd) for p in prefix)
+    p = next((p for p in prefix if m.text.startswith(p)), None)
+    return p is not None and m.text[len(p):].startswith(cmd)
+  return create(wrapper)
+  
+def user(id):
+  async def wrapper(_, __, m):
+    return m.from_user.id == id
   return create(wrapper)

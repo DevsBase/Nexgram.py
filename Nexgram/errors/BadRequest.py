@@ -1,3 +1,3 @@
 class BadRequest(Exception):
-  def __init__(self, message="Bad Request"):
+  def __init__(self, message):
     super().__init__(message)

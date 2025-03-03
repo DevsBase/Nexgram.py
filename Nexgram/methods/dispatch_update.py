@@ -39,6 +39,6 @@ class Dispatch:
         )
         
         for x in self.on_message_listeners:
-          asyncio.create_task(x(self, message))
+          asyncio.create_task(self.call(self.on_message_listeners, x, self, message))
       except Exception as e:
-        log.error(f"Line 39: {e}, message: {m}")
+        log.error(f"[DispatchUpdate] Line 44: {e}, message: {m}")

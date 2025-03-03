@@ -8,7 +8,7 @@ class Call:
     if data.get('filters'):
       for filter_func in data.get('filters'):
         if inspect.iscoroutinefunction(filter_func):
-          c = await filter_func(*args))
+          c = await filter_func(*args)
         else:
           c = await asyncio.to_thread(filter_func, *args)
         tasks.append(c)

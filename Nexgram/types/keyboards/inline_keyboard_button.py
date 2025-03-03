@@ -23,4 +23,6 @@ class InlineKeyboardButton:
     elif switch_inline_query_current_chat:
       self.switch_inline_query_current_chat = switch_inline_query_current_chat
     else: raise Exception("?.")
+  def __repr__(self):
+    return json.dumps(self.__dict__, indent=2, ensure_ascii=False)
     

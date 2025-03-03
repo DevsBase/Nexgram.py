@@ -39,12 +39,13 @@ class Message:
       default=lambda o: o.__dict__ if hasattr(o, "__dict__") else o
     )
     
-  async def reply(self, text: str, parse_mode: str = None):
+  async def reply(self, text: str, reply_markup = None,parse_mode: str = None):
     client = self.client
     if not client.connected: raise ConnectionError("Client is not connected, you must connect the client to send message.")
     await client.send_message(
       chat_id=self.chat.id,
       text=text,
+      reply_markup=reply_markup,
       reply_to_message_id=self.id,
       parse_mode=parse_mode,
     )

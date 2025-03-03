@@ -10,6 +10,7 @@ class Filter:
     self.is_async = inspect.iscoroutinefunction(func)
 
   async def __call__(self, *args, **kwargs):
+    log.info("Call triggered!")
     if self.is_async:
       return await self.func(*args, **kwargs)
     return self.func(*args, **kwargs)

@@ -27,6 +27,8 @@ class Client(Methods):
     # Decorators --
     self.on_message_listeners = {}
     self.on_disconnect_listeners = {}
+    self.on_callback_query_listeners = {}
+    self.on_inline_query_listeners = {}
     self.on_listeners = {}
     
   async def start(self, start_polling=False):
@@ -53,6 +55,7 @@ class Client(Methods):
               asyncio.set_event_loop(loop)
             loop.create_task(self.start_polling())
             log.info("Exp. Feature Started: Loop created.")
+            self.loop = loop
           return self.me
         raise ValueError("Failed to connect with your bot token. Please make sure your bot token is correct.")
 
@@ -61,21 +64,24 @@ class Client(Methods):
       raise ConnectionError("Client is not connected. Please connect the client and start polling.")
     elif self.polling: raise PollingAlreadyStartedError("Polling already started, why you trying again and again? didn't you receive any updates?")
     self.polling = True
-    log.info("Nexgram polling started!")
-    self.first_start = True
+    log.info("Nexgram.py - polling started!")
+    first_start = True
+    max_retry, retry = 25, 0
     while self.polling:
       try:
-        async with aiohttp.ClientSession() as session:
-          params = {"offset": self.offset, "timeout": 30}
-          async with session.get(f"https://api.telegram.org/bot{self.bot_token}/getUpdates", params=params) as response:
-            updates = await response.json()
-            if "result" in updates and not self.first_start:
-              for update in updates["result"]:
-                self.offset = update["update_id"] + 1
-                asyncio.create_task(self.dispatch_update(update))
-            elif "result" in updates and self.first_start: self.first_start = False
+        params = {"offset": self.offset, "timeout": 15}
+        updates = await self.api.get(ApiUrl+"getUpdates", params=params)
+        if "result" in updates and not first_start:
+          for update in updates["result"]:
+            self.offset = update["update_id"] + 1
+            asyncio.create_task(self.dispatch_update(update))
+          elif "result" in updates and first_start:
+            first_start = False
       except Exception as e:
-        log.error(f"Error in start_polling: {e}")
+        if retry > max_retry:
+          break
+        log.error(f"[{retry}/{max_retry}] Error in polling: {e}")
+    await self.stop()
   
   async def stop(self):
     await self.trigger_disconnect()

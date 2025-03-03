@@ -31,7 +31,9 @@ class Filter:
     return Filter(inverted)
     
 def create(func):
-  name = func.__name__ if hasattr(func, '__name__') else 'CustomFilter'
-  return type(name, (Filter,), {})(func)
-  
+  if isinstance(func, Filter):
+    return func
+  name = getattr(func, "__name__", "CustomFilter")
+  return type(name, (Filter,), {"__call__": func})(func)
+    
 text = create(lambda _, message: message.text)

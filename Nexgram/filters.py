@@ -49,9 +49,9 @@ def user(id):
     if isinstance(id, (int, str)) and str(id).isdigit():
       return m.from_user.id == int(id)
     if isinstance(id, list):
-      return any(user(_, __, m) for user in map(user, id))
+      return any(user(u)(_, __, m) for u in id)
     urls = ["http://t.me/", "https://t.me/", "www.t.me/", "@", "http://telegram.dog/", "https://telegram.dog/"]
-    return any(id.replace(x, "") == m.from_user.username for x in urls)
+    return any(id.replace(x, "").lower() == m.from_user.username.lower() for x in urls)
   return create(wrapper)
   
   

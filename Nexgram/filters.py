@@ -41,14 +41,17 @@ text = create(lambda _, message: message.text)
 def command(cmd, prefix=['/']):
   async def wrapper(_, __, m):
     p = next((p for p in prefix if m.text.startswith(p)), None)
-    return p is not None and m.text[len(p):].startswith(cmd)
+    return p and (m.text[len(p):] in cmd if isinstance(cmd, list) else m.text[len(p):] == cmd)
   return create(wrapper)
   
 def user(id):
   async def wrapper(_, __, m):
-    if isinstance(id, int) or (isinstance(id, str) and id.isdigit()):
+    if isinstance(id, (int, str)) and str(id).isdigit():
       return m.from_user.id == int(id)
-    urls = ["http://t.me/", "https://t.me/", "www.t.me/", "@", "http://telegram.dog/", "https://telegram.dog/"]  
+    if isinstance(id, list):
+      return any(user(_, __, m) for user in map(user, id))
+    urls = ["http://t.me/", "https://t.me/", "www.t.me/", "@", "http://telegram.dog/", "https://telegram.dog/"]
     return any(id.replace(x, "") == m.from_user.username for x in urls)
   return create(wrapper)
+  
   

@@ -1,9 +1,9 @@
 from Nexgram.errors import BadRequest
 import asyncio
 
-class ForwardMessages:
-  async def forward_messages(self, chat_id: int, from_chat_id: int, id):
-    if not self.connected: raise ConnectionError("Client is not connected, you must connect the client to forward message.")
+class CopyMessages:
+  async def copy_messages(self, chat_id: int, from_chat_id: int, id, caption=None, parse_mode=None):
+    if not self.connected: raise ConnectionError("Client is not connected, you must connect the client to copy message.")
     if isinstance(id, int): id = [id]
     output = []
     for x in id:
@@ -15,7 +15,9 @@ class ForwardMessages:
         "from_chat_id": from_chat_id,
         "message_id": int(x)
       }
-      z = await self.api.post(self.ApiUrl+"forwardMessage", json=data)
+      if caption: data['caption'] = caption
+      if parse_mode: pass
+      z = await self.api.post(self.ApiUrl+"copyMessage", json=data)
       if not z.get('ok') and z.get('error_code'):
         error_type = z.get('description')
         error = z.get('description').split(':', 1)[1]

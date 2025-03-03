@@ -54,3 +54,6 @@ class Message:
   async def forward(self, chat_id):
     client, api, url = self.client, self.client.api, self.client.ApiUrl
     return await client.forward_messages(chat_id, self.chat.id, self.id)
+  async def copy(chat_id, caption=None, parse_mode=None)
+    client, api, url = self.client, self.client.api, self.client.ApiUrl
+    return await client.copy_messages(chat_id, self.chat.id, self.id, caption=caption, parse_mode=parse_mode)

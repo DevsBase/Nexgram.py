@@ -11,6 +11,7 @@ class InlineKeyboardButton:
     switch_inline_query=None,
     switch_inline_query_current_chat=None,
   ):
+    self._ = "Nexgram.types.InlineKeyboardButton"
     self.text = text
     if url:
       self.url = url

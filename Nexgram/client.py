@@ -33,7 +33,7 @@ class Client(Methods):
     self.on_inline_query_listeners = {}
     self.on_listeners = {}
     
-  async def start(self, start_polling=False):
+  async def start(self, start_polling=True):
     url = f"https://api.telegram.org/bot{self.bot_token}/getMe"
     async with aiohttp.ClientSession() as session:
       async with session.get(url) as r:
@@ -50,14 +50,8 @@ class Client(Methods):
           )
           log.info(f"Client connected as {self.me.first_name} (@{self.me.username})")
           if start_polling:
-            try:
-              loop = asyncio.get_running_loop()
-            except RuntimeError:
-              loop = asyncio.new_event_loop()
-              asyncio.set_event_loop(loop)
-            loop.create_task(self.start_polling())
+            asyncio.create_task(self.start_polling())
             log.info("Exp. Feature Started: Loop created.")
-            self.loop = loop
           return self.me
         raise ValueError("Failed to connect with your bot token. Please make sure your bot token is correct.")
 

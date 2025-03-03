@@ -8,6 +8,7 @@ from .types import *
 from .api import Api
 
 log = logging.getLogger(__name__)
+clients = []
 
 class Client(Methods):
   def __init__(
@@ -24,6 +25,7 @@ class Client(Methods):
     self.ApiUrl = f"https://api.telegram.org/bot{self.bot_token}/"
     self.api = Api()
     self.log = log
+    clients.append(self)
     # Decorators --
     self.on_message_listeners = {}
     self.on_disconnect_listeners = {}

@@ -30,6 +30,7 @@ class Filter:
     return Filter(inverted)
     
 def create(func):
-  return type(func.__name__, (Filter,), {})(func)
+  name = func.__name__ if hasattr(func, '__name__') else 'CustomFilter'
+  return type(name, (Filter,), {})(func)
   
 text = create(lambda _, message: message.text)

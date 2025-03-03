@@ -1,5 +1,6 @@
 from Nexgram.errors import *
 from Nexgram.types import *
+import asyncio
 
 class Dispatch:
   async def dispatch_update(self, update):

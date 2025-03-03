@@ -75,8 +75,8 @@ class Client(Methods):
           for update in updates["result"]:
             self.offset = update["update_id"] + 1
             asyncio.create_task(self.dispatch_update(update))
-          elif "result" in updates and first_start:
-            first_start = False
+        elif "result" in updates and first_start:
+          first_start = False
       except Exception as e:
         if retry > max_retry:
           break

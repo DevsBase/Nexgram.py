@@ -1,3 +1,5 @@
+import json
+
 class InlineKeyboardButton:
   def __init__(
     self,

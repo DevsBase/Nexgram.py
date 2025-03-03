@@ -11,8 +11,8 @@ class Call:
           tasks.append(filter_func(*args, **kwargs))
         else:
           tasks.append(asyncio.to_thread(filter_func, *args, **kwargs))
-       fk = await asyncio.gather(*tasks)
-       if all(fk):
-         return await func(*args, **kwargs)
+      fk = await asyncio.gather(*tasks)
+      if all(fk):
+        return await func(*args, **kwargs)
     else:
       return await func(*args, **kwargs)

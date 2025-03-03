@@ -46,5 +46,8 @@ def command(cmd, prefix=['/']):
   
 def user(id):
   async def wrapper(_, __, m):
-    return m.from_user.id == id
+    if isinstance(id, int) or (isinstance(id, str) and id.isdigit()):
+      return m.from_user.id == int(id)
+    urls = ["http://t.me/", "https://t.me/", "www.t.me/", "@", "http://telegram.dog/", "https://telegram.dog/"]  
+    return any(id.replace(x, "") == m.from_user.username for x in urls)
   return create(wrapper)

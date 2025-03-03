@@ -70,7 +70,7 @@ class Client(Methods):
     while self.polling:
       try:
         params = {"offset": self.offset, "timeout": 15}
-        updates = await self.api.get(ApiUrl+"getUpdates", params=params)
+        updates = await self.api.get(self.ApiUrl+"getUpdates", params=params)
         if "result" in updates and not first_start:
           for update in updates["result"]:
             self.offset = update["update_id"] + 1
@@ -81,6 +81,7 @@ class Client(Methods):
         if retry > max_retry:
           break
         log.error(f"[{retry}/{max_retry}] Error in polling: {e}")
+        retry += 1
     await self.stop()
   
   async def stop(self):

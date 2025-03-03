@@ -1,5 +1,5 @@
-from .errors import *
-from .types import *
+from Nexgram.errors import *
+from Nexgram.types import *
 
 class Dispatch:
   async def dispatch_update(self, update):

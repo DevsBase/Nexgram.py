@@ -9,8 +9,8 @@ class Message:
     from_user: "Nexgram.types.User",
     chat: "Nexgram.types.Chat",
     reply_to_message: "Nexgram.types.Message",
-    forward_from: "Nexgram.types.User" = None,
-    forward_from_chat: "Nexgram.types.Chat" = None,
+    forward_from: "Nexgram.types.User",
+    
     data: str = None,
     caption: str = None,
     text: str = None

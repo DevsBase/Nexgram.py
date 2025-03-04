@@ -12,6 +12,7 @@ class CreateMessage:
         id=frm.get('id'),
         first_name=frm.get('first_name'),
         last_name=frm.get('last_name'),
+        username=frm.get('username'),
         is_bot=frm.get('is_bot'),
       )  
     if ch:
@@ -25,6 +26,15 @@ class CreateMessage:
       )
     if forward_from:
       forward_from = User(
+        client=self,
+        id=forward_from.get('id'),
+        first_name=forward_from.get('first_name'),
+        last_name=forward_from.get('last_name'),
+        username=forward_from.get("username"),
+        is_bot=forward_from.get("is_bot")
+      )
+    if forward_from_chat:
+      forward_from_chat = Chat(
         
       )
     return Message(

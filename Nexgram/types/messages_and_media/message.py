@@ -7,8 +7,9 @@ class Message:
     client: "Nexgram.Client",
     id: int,
     from_user: "Nexgram.types.User",
-    chat: "Nexgram.types.Chat",
+    chat: "Nexgram.types.Chat" = None,
     reply_to_message: "Nexgram.types.Message" = None,
+    callback_query_message: "Nexgram.types.Message" = None,
     forward_from: "Nexgram.types.User" = None,
     forward_from_chat: "Nexgram.types.Chat" = None,
     data: str = None,
@@ -19,18 +20,22 @@ class Message:
     from Nexgram import Client
     
     if not isinstance(from_user, User): raise InvalidObject("You should pass 'Nexgram.types.User' object in 'from_user' argument not others.")
-    if not isinstance(chat, Chat): raise InvalidObject("You should pass 'Nexgram.types.Chat' object in 'chat' argument not others.")
     if not isinstance(client, Client): raise InvalidObject("You should pass 'Nexgram.Client' object in 'client' argument not others")
     
     self._ = "Nexgram.types.Message"
     self.id = id
     self.from_user = from_user
-    self.chat = chat
-    
+    if chat:
+      if not isinstance(chat, Chat): raise InvalidObject("You should pass 'Nexgram.types.Chat' object in 'chat' argument not others.")
+      self.chat = chat
     if reply_to_message:
-      if not isinstance(reply_to_message, self):
+      if not isinstance(reply_to_message, Message):
         raise InvalidObject("You should pass 'Nexgram.Client.Message' object in 'reply_to_message' argument not others")
       self.reply_to_message = reply_to_message
+    if callback_query_message:
+      if not isinstance(callback_query_message, Message):
+        raise InvalidObject("You should pass 'Nexgram.Client.Message' object in 'callback_query_message' argument not others")
+      self.message = callback_query_message
     if forward_from:
       if not isinstance(forward_from, User): raise TypeError("?.")
       self.forward_from = forward_from

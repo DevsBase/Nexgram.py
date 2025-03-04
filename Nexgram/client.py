@@ -81,8 +81,7 @@ class Client(Methods):
         retry += 1
     await self.stop()
   
-  async def stop(self):
-    await self.trigger_disconnect()
-    self.polling = False
-    self.connected = False
-    log.info("Client stopped.")
+  async def __aenter__(self):
+    return self
+  async def __aexit__(self, exc_type, exc, tb):
+    pass

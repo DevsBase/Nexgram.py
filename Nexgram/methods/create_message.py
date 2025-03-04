@@ -4,8 +4,7 @@ class CreateMessage:
   async def create_message(self, data, type='message'):
     frm = data.get('from_user') or data.get('from')
     chat = data.get('chat')
-    if type == 'callback_query':
-      callback_query_message = data.get('message')
+    callback_query_message = data.get('message')
     forward_from = data.get('forward_from')
     forward_from_chat = data.get("forward_from_chat")
     

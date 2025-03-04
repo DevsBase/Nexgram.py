@@ -4,7 +4,7 @@ class User:
   def __init__(
     self,
     client: "Nexgram.Client" = None,
-    id: int,
+    id: int = 0,
     first_name: str = None,
     last_name: str = None,
     username: str = None,

@@ -45,13 +45,11 @@ class Message:
   def __repr__(self):
     mf = ["client"]
     data = {k: v for k, v in self.__dict__.items() if k not in mf}
-    return data
-    """return json.dumps(
+    return json.dumps(
       data,
       indent=2,
       ensure_ascii=False,
-      default=lambda o: o.__dict__ if hasattr(o, "__dict__") else o
-    )"""
+    )
     
   async def reply(self, text: str, reply_markup = None,parse_mode: str = None):
     client = self.client

@@ -76,7 +76,7 @@ class Client(Methods):
           first_start = False
         elif 'error_code' in updates:
           err = updates.get('description')
-          code = int(updates.get('error_code')
+          code = int(updates.get('error_code'))
           if code == 401:
             raise BadRequest(f"Telegram says: [{code}_{err.upper()}] - The bot token you provied is incorrect or revoked (caused by 'Client.start_polling.getUpdates')")
       except Exception as e:

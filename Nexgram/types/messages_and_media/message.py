@@ -59,24 +59,30 @@ class Message:
         return {k: clean(v) for k, v in obj.__dict__.items() if k not in mf}
       return obj
     return json.dumps(clean(self), indent=2, ensure_ascii=False).replace("\\n", "\n")
-    
+  
+  async def get_chat(self, id=True):
+    if hasattr(self, 'chat'):
+      return self.chat if not id else self.chat.id
+    elif hasattr(self, 'message') and hasattr(self.message, 'chat'):
+      return self.message.chat if not id else self.chat.id
+  
   async def reply(self, text: str, reply_markup = None,parse_mode: str = None):
     client = self.client
     await client.send_message(
-      chat_id=self.chat.id,
+      chat_id=await self.get_chat(),
       text=text,
       reply_markup=reply_markup,
-      reply_to_message_id=self.id,
+      reply_to_message_id=self.id if not hasattr(self, 'message') else self.message.id,
       parse_mode=parse_mode,
     )
   async def delete(self):
     client, api, url = self.client, self.client.api, self.client.ApiUrl
-    return await api.post(url+"deleteMessage", {"chat_id": self.chat.id, "message_id": self.id})
+    return await api.post(url+"deleteMessage", {"chat_id": await self.get_chat(), "message_id": self.id if not hasattr(self, 'message') else self.message.id})
   
   async def forward(self, chat_id):
     client, api, url = self.client, self.client.api, self.client.ApiUrl
-    return await client.forward_messages(chat_id, self.chat.id, self.id)
+    return await client.forward_messages(chat_id, await self.get_chat(), self.id if not hasattr(self, 'message') else self.message.id)
   
   async def copy(self, chat_id, caption=None, parse_mode=None):
     client, api, url = self.client, self.client.api, self.client.ApiUrl
-    return await client.copy_messages(chat_id, self.chat.id, self.id, caption=caption, parse_mode=parse_mode)
+    return await client.copy_messages(chat_id, await self.get_chat(), self.id if not hasattr(self, 'message') else self.message.id, caption=caption, parse_mode=parse_mode)

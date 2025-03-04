@@ -32,5 +32,4 @@ class User:
       data,
       indent=2,
       ensure_ascii=False,
-      default=lambda o: o.__dict__ if hasattr(o, "__dict__") else o
     )

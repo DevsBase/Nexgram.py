@@ -4,6 +4,8 @@ class CreateMessage:
   async def create_message(self, data):
     frm = data.get('from_user') or data.get('from')
     ch = data.get('chat')
+    forward_from = data.get('forward_from')
+    forward_from_chat = data.get("forward_from_chat")
     if frm:
       from_user = User(
         client=self,
@@ -21,12 +23,18 @@ class CreateMessage:
         type=ch.get('type'),
         username=ch.get('username'),
       )
+    if forward_from:
+      forward_from = User(
+        
+      )
     return Message(
       client=self,
       id=data.get('message_id'),
       from_user=from_user,
       chat=chat,
       reply_to_message=None,
+      forward_from=forward_from,
+      forward_from_chat=forward_from_chat,
       data=data.get('data'),
       caption=data.get('caption'),
       text=data.get('text')

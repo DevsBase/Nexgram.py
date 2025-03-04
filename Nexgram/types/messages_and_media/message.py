@@ -49,7 +49,9 @@ class Message:
       data,
       indent=2,
       ensure_ascii=False,
-      default=lambda o: o.__dict__ if hasattr(o, "__dict__") else o
+      default=lambda o: (
+        None if isinstance(o, Client) else o.__dict__ if hasattr(o, "__dict__") else o
+      )
     )
     
   async def reply(self, text: str, reply_markup = None,parse_mode: str = None):

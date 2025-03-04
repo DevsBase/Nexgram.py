@@ -43,6 +43,7 @@ class Message:
     self.client = client
   
   def __repr__(self):
+    from Nexgram import Client
     mf = ["client"]
     data = {k: v for k, v in self.__dict__.items() if k not in mf}
     return json.dumps(

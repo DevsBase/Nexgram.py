@@ -48,7 +48,7 @@ class CreateMessage:
       )
     return Message(
       client=self,
-      id=data.get('message_id'),
+      id=data.get('message_id') or data.get('id'),
       from_user=from_user,
       chat=chat,
       callback_query_message=callback_query_message,

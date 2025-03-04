@@ -20,6 +20,6 @@ class Dispatch:
         m = update.get("callback_query")
         message = await self.create_message(m, type="callback_query")
         for x in self.on_callback_query_listeners:
-          asyncio.create_task(self.call(self.on_message_listeners, x, self, message))
+          asyncio.create_task(self.call(self.on_callback_query_listeners, x, self, message))
       except Exception as e:
         log.error(f"[DispatchUpdate] Line 25: {e}, message: {m}")

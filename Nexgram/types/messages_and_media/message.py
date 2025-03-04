@@ -64,7 +64,7 @@ class Message:
     if hasattr(self, 'chat'):
       return self.chat if not id else self.chat.id
     elif hasattr(self, 'message') and hasattr(self.message, 'chat'):
-      return self.message.chat if not id else self.chat.id
+      return self.message.chat.id if id else self.message.chat
   
   async def reply(self, text: str, reply_markup = None,parse_mode: str = None):
     client = self.client

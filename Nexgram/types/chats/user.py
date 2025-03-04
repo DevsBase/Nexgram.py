@@ -26,6 +26,7 @@ class User:
     if username: self.username = username
       
   def __repr__(self):
+    from Nexgram import Client
     mf = {"client"}
     def clean(obj):
       if isinstance(obj, Client):

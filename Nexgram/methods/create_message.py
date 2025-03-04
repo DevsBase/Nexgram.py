@@ -47,7 +47,6 @@ class CreateMessage:
       id=data.get('message_id'),
       from_user=from_user,
       chat=chat,
-      reply_to_message=None,
       forward_from=forward_from,
       forward_from_chat=forward_from_chat,
       data=data.get('data'),

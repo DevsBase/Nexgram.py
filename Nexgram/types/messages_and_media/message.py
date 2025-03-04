@@ -8,7 +8,7 @@ class Message:
     id: int,
     from_user: "Nexgram.types.User",
     chat: "Nexgram.types.Chat",
-    reply_to_message: "Nexgram.types.Message",
+    reply_to_message: "Nexgram.types.Message" = None,
     forward_from: "Nexgram.types.User" = None,
     forward_from_chat: "Nexgram.types.Chat" = None,
     data: str = None,
@@ -26,10 +26,17 @@ class Message:
     self.id = id
     self.from_user = from_user
     self.chat = chat
+    
     if reply_to_message:
       if not isinstance(reply_to_message, self):
         raise InvalidObject("You should pass 'Nexgram.Client.Message' object in 'reply_to_message' argument not others")
       self.reply_to_message = reply_to_message
+    if forward_from:
+      if not isinstance(forward_from, User): raise TypeError("?.")
+      self.forward_from = forward_from
+    if forward_from_chat:
+      if not isinstance(forward_from_chat, Chat): raise TypeError("?.")
+      self.forward_from_chat = forward_from_chat
     if data: self.data = data
     if caption: self.caption = caption
     if text: self.text = text

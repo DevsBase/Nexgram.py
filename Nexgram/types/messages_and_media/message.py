@@ -9,7 +9,11 @@ class Message:
     from_user: "Nexgram.types.User",
     chat: "Nexgram.types.Chat",
     reply_to_message: "Nexgram.types.Message",
-    text: str = None,
+    forward_from: "Nexgram.types.User",
+    forward_from_chat: "Nexgram.types.Chat",
+    data: str = None,
+    caption: str = None,
+    text: str = None
   ):
     from Nexgram.types import User, Chat
     from Nexgram import Client
@@ -26,7 +30,9 @@ class Message:
       if not isinstance(reply_to_message, self):
         raise InvalidObject("You should pass 'Nexgram.Client.Message' object in 'reply_to_message' argument not others")
       self.reply_to_message = reply_to_message
-    self.text = text
+    if data: self.data = data
+    if caption: self.caption = caption
+    if text: self.text = text
     self.client = client
   
   def __repr__(self):

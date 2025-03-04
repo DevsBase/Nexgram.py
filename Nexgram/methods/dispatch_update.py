@@ -13,8 +13,10 @@ class Dispatch:
         frm = m.get('from')
         ch = m.get('chat')
         from_user = User(
-          frm['id'],
-          frm['first_name'],
+          client=self,
+          id=frm['id'],
+          first_name=frm['first_name'],
+          last_name=frm.get('last_name'),
           username=frm.get('username'),
           is_bot=frm.get('is_bot'),
           is_self=frm['id'] == self.me.id,

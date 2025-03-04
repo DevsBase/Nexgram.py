@@ -4,6 +4,7 @@ from .decorators import Decorators
 from .call import Call
 from .forward_messages import ForwardMessages
 from .copy_messages import CopyMessages
+from .create_message import CreateMessage
 
 class Methods(
   sendMessage,
@@ -12,5 +13,6 @@ class Methods(
   Call,
   ForwardMessages,
   CopyMessages,
+  CreateMessage,
 ):
   pass

@@ -3,6 +3,6 @@ from .filters import *
 from .idle import idle
 import logging 
 
-__version__ = "0.0.21"
+__version__ = "0.0.22"
 
 version = __version__

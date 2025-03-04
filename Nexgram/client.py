@@ -42,8 +42,9 @@ class Client(Methods):
           self.connected = True
           r = r["result"]
           self.me = User(
-            r['id'],
-            r['first_name'],
+            client=self,
+            id=r['id'],
+            first_name=r['first_name'],
             username=r['username'],
             is_self=True,
             is_bot=True,

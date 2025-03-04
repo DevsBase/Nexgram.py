@@ -1,4 +1,4 @@
-from Nexgram.types import User, Chat
+from Nexgram.types import User, Chat, Message
 
 class CreateMessage:
   async def create_message(self, data):

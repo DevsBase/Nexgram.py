@@ -26,14 +26,14 @@ class User:
     if username: self.username = username
       
   def __repr__(self):
-    from Nexgram import Client
-    mf = ["client"]
-    data = {k: v for k, v in self.__dict__.items() if k not in mf}
-    return json.dumps(
-      data,
-      indent=2,
-      ensure_ascii=False,
-      default=lambda o: (
-        None if isinstance(o, Client) else o.__dict__ if hasattr(o, "__dict__") else o
-      )
-    )
+    mf = {"client"}
+    def clean(obj):
+      if isinstance(obj, Client):
+        return None
+      if isinstance(obj, dict):
+        return {k: clean(v) for k, v in obj.items() if k not in mf}
+      if hasattr(obj, "__dict__"):
+        return {k: clean(v) for k, v in obj.__dict__.items() if k not in mf}
+      return obj
+    return json.dumps(clean(self), indent=2, ensure_ascii=False).replace("\\n", "\n")
+    

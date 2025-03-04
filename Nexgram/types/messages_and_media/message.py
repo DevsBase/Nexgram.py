@@ -45,6 +45,7 @@ class Message:
   def __repr__(self):
     mf = ["client"]
     data = {k: v for k, v in self.__dict__.items() if k not in mf}
+    self.client.log.info(data)
     return json.dumps(
       data,
       indent=2,

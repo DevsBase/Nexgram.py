@@ -35,7 +35,12 @@ class CreateMessage:
       )
     if forward_from_chat:
       forward_from_chat = Chat(
-        
+        id=forward_from_chat.get('id'),
+        title=forward_from_chat.get('title'),
+        first_name=forward_from_chat.get('first_name'),
+        last_name=forward_from_chat.get('last_name'),
+        type=forward_from_chat.get('type'),
+        username=forward_from_chat.get('username'),
       )
     return Message(
       client=self,

@@ -25,6 +25,11 @@ class InlineQuery:
       if isinstance(obj, dict):
         return {k: clean(v) for k, v in obj.items() if k not in mf}
       if hasattr(obj, "__dict__"):
-        return {k: clean(v) for k, v in obj.__dict__.items() if k not in mf}
+        return {
+          k: clean(v)
+          for k, v in obj.__dict__.items()
+          if k not in mf and not callable(v)
+        }
       return obj
-    return json.dumps(clean(self), indent=2, ensure_ascii=False).replace("\\n", "\n")
+    return json.dumps(clean(self), indent=2, ensure_ascii=False).replace("\\n", "\n")    
+    

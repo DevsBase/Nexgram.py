@@ -54,13 +54,14 @@ class CreateMessage:
         chat=chat,
         forward_from=forward_from,
         forward_from_chat=forward_from_chat,
+        reply_markup=None,
         caption=data.get('caption'),
         text=data.get('text')
       )
     elif update_type == "callback_query":
       return CallbackQuery(
         client=self,
-        id=id,
+        id=data.get('id'),
         from_user=from_user,
         message=callback_query_message,
         data=data.get('data')
@@ -68,7 +69,7 @@ class CreateMessage:
     elif update_type == "inline_query":
       return InlineQuery(
         client=self,
-        id=id,
+        id=data.get('id'),
         from_user=from_user,
         query=data.get('query'),
         offset=data.get('offset')

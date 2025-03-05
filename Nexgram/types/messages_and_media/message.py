@@ -11,6 +11,7 @@ class Message:
     reply_to_message: "Nexgram.types.Message" = None,
     forward_from: "Nexgram.types.User" = None,
     forward_from_chat: "Nexgram.types.Chat" = None,
+    reply_markup: "Nexgram.types.InlineKeyboardMarkup" = None,
     caption: str = None,
     text: str = None
   ):

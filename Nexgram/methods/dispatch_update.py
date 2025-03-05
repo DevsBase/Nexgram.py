@@ -10,7 +10,7 @@ class Dispatch:
       for x in src:
         asyncio.create_task(self.call(src, x, self, message))
     except Exception as e:
-      log.error(f"[DispatchUpdate] Line 13: {e}, message: {m}")
+      self.log.error(f"[DispatchUpdate] Line 13: {e}")
   
   async def dispatch_update(self, update):
     log = self.log

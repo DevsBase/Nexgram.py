@@ -1,4 +1,4 @@
-from Nexgram.types import User, Chat, Message
+from Nexgram.types import *
 
 class CreateMessage:
   async def create_message(self, data, type='message'):
@@ -65,4 +65,11 @@ class CreateMessage:
         message=callback_query_message,
         data=data.get('data')
       )
-    elif type == ""
+    elif type == "inline_query":
+      return InlineQuery(
+        client=self,
+        id=id,
+        from_user=from_user,
+        query=data.get('query'),
+        offset=data.get('offset')
+      )

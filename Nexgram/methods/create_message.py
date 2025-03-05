@@ -46,15 +46,14 @@ class CreateMessage:
         type=forward_from_chat.get('type'),
         username=forward_from_chat.get('username'),
       )
-    return Message(
-      client=self,
-      id=data.get('message_id') or data.get('id'),
-      from_user=from_user,
-      chat=chat,
-      callback_query_message=callback_query_message,
-      forward_from=forward_from,
-      forward_from_chat=forward_from_chat,
-      data=data.get('data'),
-      caption=data.get('caption'),
-      text=data.get('text')
-    )
+    if type == "message":
+      return Message(
+        client=self,
+        id=data.get('message_id') or data.get('id'),
+        from_user=from_user,
+        chat=chat,
+        forward_from=forward_from,
+        forward_from_chat=forward_from_chat,
+        caption=data.get('caption'),
+        text=data.get('text')
+      )

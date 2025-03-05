@@ -1,7 +1,7 @@
 from Nexgram.types import *
 
 class CreateMessage:
-  async def create_message(self, data, type='message'):
+  async def create_message(self, data, update_type='message'):
     frm = data.get('from_user') or data.get('from')
     chat = data.get('chat')
     callback_query_message = data.get('message')
@@ -46,7 +46,7 @@ class CreateMessage:
         type=forward_from_chat.get('type'),
         username=forward_from_chat.get('username'),
       )
-    if type == "message":
+    if update_type == "message":
       return Message(
         client=self,
         id=data.get('message_id') or data.get('id'),
@@ -57,7 +57,7 @@ class CreateMessage:
         caption=data.get('caption'),
         text=data.get('text')
       )
-    elif type == "callback_query":
+    elif update_type == "callback_query":
       return CallbackQuery(
         client=self,
         id=id,
@@ -65,7 +65,7 @@ class CreateMessage:
         message=callback_query_message,
         data=data.get('data')
       )
-    elif type == "inline_query":
+    elif update_type == "inline_query":
       return InlineQuery(
         client=self,
         id=id,

@@ -57,3 +57,12 @@ class CreateMessage:
         caption=data.get('caption'),
         text=data.get('text')
       )
+    elif type == "callback_query":
+      return CallbackQuery(
+        client=self,
+        id=id,
+        from_user=from_user,
+        message=callback_query_message,
+        data=data.get('data')
+      )
+    elif type == ""

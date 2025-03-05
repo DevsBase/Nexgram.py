@@ -1,20 +1,10 @@
-from .send_message import sendMessage
-from .dispatch_update import Dispatch
+from .messages import Messages
 from .decorators import Decorators
-from .call import Call
-from .forward_messages import ForwardMessages
-from .copy_messages import CopyMessages
-from .create_message import CreateMessage
-from .stop import Stop
+from .utilities import Utilities
 
 class Methods(
-  sendMessage,
-  Dispatch,
-  Decorators,
-  Call,
-  ForwardMessages,
-  CopyMessages,
-  CreateMessage,
-  Stop,
+  Messages,
+  Utilities,
+  Decorators
 ):
   pass

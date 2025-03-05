@@ -1,6 +1,6 @@
 import json
 
-class InlineQuery:
+class ChatJoinRequest:
   def __init__(
     self,
     client: "Nexgram.Client",

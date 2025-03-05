@@ -35,4 +35,12 @@ class CallbackQuery:
         }
       return obj
     return json.dumps(clean(self), indent=2, ensure_ascii=False).replace("\\n", "\n")    
-    
+  async def answer(self, text: str, show_alert: bool = False, cache_time: int = 0):
+    client, api, url = self.client, self.client.api, self.client.ApiUrl
+    data = {
+      "callback_query_id": self.id,
+      "text": text,
+      "show_alert": show_alert,
+      "cache_time": cache_time,
+    }
+    return await api.post(url+"answerCallbackQuery", data)

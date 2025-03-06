@@ -6,6 +6,7 @@ from .methods import *
 from .errors import *
 from .types import *
 from .api import Api
+from .import_all import import_all
 
 log = logging.getLogger(__name__)
 clients = []
@@ -15,6 +16,7 @@ class Client(Methods):
     self,
     name: str,
     bot_token: str,
+    plugins: str = None,
   ):
     self.name = name
     self.bot_token = bot_token
@@ -27,6 +29,8 @@ class Client(Methods):
     self.log = log
     self.mode = None
     clients.append(self)
+    if plugins:
+      import_all(plugins)
     # Decorators --
     self.on_message_listeners = {}
     self.on_disconnect_listeners = {}

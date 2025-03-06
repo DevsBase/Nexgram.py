@@ -37,7 +37,7 @@ def create(func):
   return type(name, (Filter,), {"__call__": func})(func)
      
 def text_filter(_, __, message):
-  if not isinstance(message, Message): return False
+  if not isinstance(message, Message): 
     return False
   return message.text
 

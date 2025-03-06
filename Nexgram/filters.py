@@ -51,12 +51,17 @@ def command(cmd, prefix=['/']):
     return p and (m.text[len(p):] in cmd if isinstance(cmd, list) else m.text[len(p):] == cmd)
   return create(wrapper)
   
+def in(one, two, three):
+  if isinstance(id, (int, str)) and str(id).isdigit():
+    one = int(one)    
+  return one == two or one == three
+  
 def user(id):
   async def wrapper(_, __, m):
     if isinstance(id, (int, str)) and str(id).isdigit():
       return m.from_user.id == int(id)
     elif isinstance(id, list):
-      return any([await user(u)(_, __, m) for u in id])
+      return any(in(u, message.from_user.id, message.from_user.username) for u in id)
     urls = ["http://t.me/", "https://t.me/", "www.t.me/", "@", "http://telegram.dog/", "https://telegram.dog/"]
     return any(id.replace(x, "").lower() == m.from_user.username.lower() for x in urls)
   return create(wrapper)
@@ -66,7 +71,7 @@ def chat(id):
     if isinstance(id, (int, str)) and str(id).replace('-', '').isdigit():
       return m.chat.id == int(id)
     elif isinstance(id, list):
-      return any(chat(c)(_, __, m) for c in id)
+      return any(in(c, message.chat.id, message.chat.username) for c in id)
     urls = ["http://t.me/", "https://t.me/", "www.t.me/", "@", "http://telegram.dog/", "https://telegram.dog/"]
     return any(id.replace(x, "").lower() == (m.chat.username or "").lower() for x in urls)
   return create(wrapper)

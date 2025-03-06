@@ -1,6 +1,7 @@
 import logging
 import inspect
 import asyncio
+from Nexgram.types import Message
 
 log = logging.getLogger(__name__)
 
@@ -40,8 +41,10 @@ text = create(lambda _, message: message.text)
 
 def command(cmd, prefix=['/']):
   async def wrapper(_, __, m):
-    p = next((p for p in prefix if m.text.startswith(p)), None)
-    return p and (m.text[len(p):] in cmd if isinstance(cmd, list) else m.text[len(p):] == cmd)
+    if not isinstance(m, Message): return
+    if message.text:
+      for x in prefix:
+        return str(message.text).lower().startswith(x+cmd.lower())
   return create(wrapper)
   
 urls = ["http://t.me/", "https://t.me/", "www.t.me/", "@", "http://telegram.dog/", "https://telegram.dog/"]

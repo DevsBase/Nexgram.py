@@ -1,8 +1,10 @@
 import json
 from Nexgram.errors import *
 
-extract_command = lambda text: (parts := text.lstrip('/').split()) if parts else None
-
+def extract_command(text):
+  parts = text.lstrip('/').split()
+  return parts if parts else None
+  
 class Message:
   def __init__(
     self,

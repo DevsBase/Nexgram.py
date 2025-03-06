@@ -12,6 +12,7 @@ class ChatJoinRequest:
       raise Exception("Cry now i won't say what exception is this")
     elif not isinstance(chat, Chat):
       raise Exception("Cry now i won't say what exception is this")
+    self._ = "Nexgram.types.ChatJoinRequest" 
     self.id = id
     self.chat = chat
     self.from_user = from_user

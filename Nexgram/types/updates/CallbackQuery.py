@@ -14,6 +14,7 @@ class CallbackQuery:
       raise Exception("Cry now i won't say what exception is this")
     elif message and not isinstance(message, Message):
       raise Exception("Cry now i won't say what exception is this")
+    self._ = "Nexgram.types.CallbackQuery"
     self.id = id
     self.from_user = from_user
     self.message = message if message else None

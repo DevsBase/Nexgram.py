@@ -12,6 +12,7 @@ class InlineQuery:
     from Nexgram.types import User
     if not isinstance(from_user, User):
       raise Exception("Cry now i won't say what exception is this")
+    self._ = "Nexgram.types.InlineQuery"
     self.id = id
     self.from_user = from_user
     self.query = query

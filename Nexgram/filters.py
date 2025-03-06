@@ -1,7 +1,7 @@
 import logging
 import inspect
 import asyncio
-from Nexgram.types import Message
+
 log = logging.getLogger(__name__)
 
 class Filter:
@@ -36,39 +36,40 @@ def create(func):
   name = getattr(func, "__name__", "CustomFilter")
   return type(name, (Filter,), {"__call__": func})(func)
      
-def text_filter(_, __, message):
-  if not isinstance(message, Message): 
-    return False
-  return message.text
-
-text = create(text_filter)
+text = create(lambda _, message: message.text)
 
 def command(cmd, prefix=['/']):
   async def wrapper(_, __, m):
-    if not isinstance(m, Message):
-      return False
     p = next((p for p in prefix if m.text.startswith(p)), None)
     return p and (m.text[len(p):] in cmd if isinstance(cmd, list) else m.text[len(p):] == cmd)
   return create(wrapper)
   
-def check(val, id1, id2):
-  val = int(val) if isinstance(val, (int, str)) and str(val).lstrip('-').isdigit() else val
-  return val == id1 or val == id2
-
-def user(ids_list):
+urls = ["http://t.me/", "https://t.me/", "www.t.me/", "@", "http://telegram.dog/", "https://telegram.dog/"]
+  
+def user(id):
   async def wrapper(_, __, m):
-    ids = [ids_list] if not isinstance(ids_list, list) else ids_list
-    urls = ["http://t.me/", "https://t.me/", "www.t.me/", "@", "http://telegram.dog/", "https://telegram.dog/"]
-    return any(check(i, m.from_user.id, (m.from_user.username or "").lower()) or 
-               any(i.replace(x, "").lower() == (m.from_user.username or "").lower() for x in urls)
-               for i in ids)
+    src = m.from_user
+    if isinstance(id, (int, str)) and str(id).isdigit():
+      return src.id == int(id)
+    elif isinstance(id, list):
+      for x in id:
+        if isinstance(x, (int, str)) and str(x).isdigit():
+          return src.id == int(x)
+        else:
+          return any(x.replace(z, "").lower() == src.username.lower() for z in urls)      
+    return any(id.replace(x, "").lower() == src.username.lower() for x in urls)
   return create(wrapper)
-
-def chat(ids_list):
+  
+def chat(id):
   async def wrapper(_, __, m):
-    ids = [ids_list] if not isinstance(ids_list, list) else ids_list
-    urls = ["http://t.me/", "https://t.me/", "www.t.me/", "@", "http://telegram.dog/", "https://telegram.dog/"]
-    return any(check(c, m.chat.id, (m.chat.username or "").lower()) or 
-               any(c.replace(x, "").lower() == (m.chat.username or "").lower() for x in urls)
-               for c in ids)
+    src = m.chat
+    if isinstance(id, (int, str)) and str(id).isdigit():
+      return src.id == int(id)
+    elif isinstance(id, list):
+      for x in id:
+        if isinstance(x, (int, str)) and str(x).isdigit():
+          return src.id == int(x)
+        else:
+          return any(x.replace(z, "").lower() == src.username.lower() for z in urls)      
+    return any(id.replace(x, "").lower() == src.username.lower() for x in urls)
   return create(wrapper)

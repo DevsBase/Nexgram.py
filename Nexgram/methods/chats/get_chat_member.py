@@ -8,6 +8,7 @@ class GetChatMember:
     r = await api.post(url+"getChatMember", d)
     if r.get('ok') and r.get('result'):
       user = r['result']['user']
+      return r
       return User(
         client=self,
         id=user.get('id'),

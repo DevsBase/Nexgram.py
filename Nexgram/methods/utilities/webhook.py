@@ -2,7 +2,7 @@ from aiohttp import web
 
 class Webhook:
   async def takeCareWebhook(self, request):
-    data = request.json()
+    data = await request.json()
     self.log.info(f"Got webhook: {data}")
     return web.json_response({"status": "ok"})
   

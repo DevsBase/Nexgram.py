@@ -40,8 +40,8 @@ def create(func):
 text = create(lambda _, message: message.text)
 
 def command(cmd, prefix=['/']):
-  async def wrapper(_, __, m):
-    if not isinstance(m, Message): return
+  async def wrapper(_, __, message):
+    if not isinstance(message, Message): return
     if message.text:
       for x in prefix:
         return str(message.text).lower().startswith(x+cmd.lower())

@@ -33,6 +33,7 @@ class Start:
       elif mode == "webhook":
         if not webhook_url or not webhook_port:
           raise ValueError("you selected 'webhook' mode. then where is url & port? you should provied it.")
+        self.webhook_url, self.webhook_port = webhook_url, webhook_port
         loop = asyncio.get_event_loop()
         loop.create_task(self.createWebhook())
       return self.me

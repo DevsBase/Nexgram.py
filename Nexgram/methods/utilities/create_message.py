@@ -1,5 +1,5 @@
 from Nexgram.types import *
-
+  
 class CreateMessage:
   async def create_message(self, data, update_type='message'):
     frm = data.get('from_user') or data.get('from')
@@ -56,7 +56,7 @@ class CreateMessage:
         forward_from_chat=forward_from_chat,
         reply_markup=None,
         caption=data.get('caption'),
-        text=data.get('text')
+        text=data.get('text'),
       )
     elif update_type == "callback_query":
       return CallbackQuery(

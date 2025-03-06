@@ -1,6 +1,8 @@
 import json
 from Nexgram.errors import *
 
+extract_command = lambda text: (parts := text.lstrip('/').split()) if parts else None
+
 class Message:
   def __init__(
     self,
@@ -37,7 +39,9 @@ class Message:
       if not isinstance(forward_from_chat, Chat): raise TypeError("?.")
       self.forward_from_chat = forward_from_chat
     if caption: self.caption = caption
-    if text: self.text = text
+    if text:
+      self.text = text
+      self.command = extract_command(tex)
     self.client = client
   
   def __repr__(self):

@@ -63,7 +63,7 @@ class Message:
     return json.dumps(clean(self), indent=2, ensure_ascii=False).replace("\\n", "\n")    
   async def reply(self, text: str, reply_markup = None,parse_mode: str = None):
     client = self.client
-    await client.send_message(
+    return await client.send_message(
       chat_id=self.chat.id,
       text=text,
       reply_markup=reply_markup,

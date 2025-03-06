@@ -32,4 +32,4 @@ class sendMessage:
       error = z.get('description').split(':', 1)[1]
       if 'bad request' in error_type.lower():
         raise BadRequest(error)
-    return z
+    return await self.create_message(z.get('result'))

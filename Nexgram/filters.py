@@ -37,7 +37,7 @@ def create(func):
   name = getattr(func, "__name__", "CustomFilter")
   return type(name, (Filter,), {"__call__": func})(func)
      
-text = create(lambda _, message: message.text)
+text = create(lambda _, message: hasattr(message, 'text'))
 
 def command(cmd, prefix=['/']):
   async def wrapper(_, __, message):

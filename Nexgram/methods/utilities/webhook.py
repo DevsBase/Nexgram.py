@@ -1,9 +1,11 @@
 from aiohttp import web
+import asyncio
 
 class Webhook:
   async def takeCareWebhook(self, request):
-    data = await request.json()
-    self.log.info(f"Got webhook: {data}")
+    update = await request.json()
+    if "update_id" in update:
+      asyncio.create_task(self.dispatch_update(update))
     return web.json_response({"ok": True})
   
   async def createWebhook(self):

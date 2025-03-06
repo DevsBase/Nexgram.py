@@ -40,11 +40,13 @@ def text_filter(_, __, message):
   if not isinstance(message, Message): return False
     return False
   return message.text
+
 text = create(text_filter)
 
 def command(cmd, prefix=['/']):
   async def wrapper(_, __, m):
-    if not isinstance(m, Message): return False
+    if not isinstance(m, Message):
+      return False
     p = next((p for p in prefix if m.text.startswith(p)), None)
     return p and (m.text[len(p):] in cmd if isinstance(cmd, list) else m.text[len(p):] == cmd)
   return create(wrapper)

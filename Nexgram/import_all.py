@@ -2,6 +2,7 @@ import importlib
 import os
 
 def import_all(package_path):
+  if not package_path: return
   package_name = package_path.replace("/", ".")  
   package = importlib.import_module(package_name)
   folder_path = os.path.dirname(package.__file__)

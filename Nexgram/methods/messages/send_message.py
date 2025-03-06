@@ -28,5 +28,8 @@ class sendMessage:
       data['reply_markup'] = reply_markup.read()
     z = await self.api.post(url, json=data)
     if not z.get('ok') and z.get('error_code'):
-      
+      error_type = z.get('description')
+      error = z.get('description').split(':', 1)[1]
+      if 'bad request' in error_type.lower():
+        raise BadRequest(error)
     return z

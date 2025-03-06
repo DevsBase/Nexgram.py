@@ -6,7 +6,6 @@ from .methods import *
 from .errors import *
 from .types import *
 from .api import Api
-from .import_all import import_all
 
 log = logging.getLogger(__name__)
 clients = []

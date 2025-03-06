@@ -1,5 +1,6 @@
 from Nexgram.types import *
 import asyncio
+from .import_all import import_all
 
 modes = ['polling', 'webhook', 'none']
 

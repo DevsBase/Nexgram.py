@@ -11,4 +11,5 @@ class Webhook:
     self.webhook = True
     app = web.Application()
     app.router.add_post("/webhook", self.__takeCareWebhook)
+    self.log.info("Success. now listening updates from webhook.")
     web.run_app(app, host="0.0.0.0", port=self.webhook_port)

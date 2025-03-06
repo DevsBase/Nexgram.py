@@ -15,7 +15,7 @@ class Webhook:
       raise Exception(f"Telegram says: {um}")
     app = web.Application()
     app.router.add_post("/webhook", self.takeCareWebhook)
-    runner = web.AppRunner(app, access_log=None))
+    runner = web.AppRunner(app, access_log=None)
     self.log.info("Success. now listening updates from webhook.")
     await runner.setup()
     site = web.TCPSite(runner, "0.0.0.0", self.webhook_port)

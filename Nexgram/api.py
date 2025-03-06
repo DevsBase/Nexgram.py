@@ -1,4 +1,3 @@
-"""Api class used to post/get from BotApi, I don't like to create code for calling api each time."""
 import aiohttp
 
 class Api:

@@ -1,7 +1,7 @@
 from .client import *
 from .filters import *
 from .idle import idle
-import logging 
+import logging
 
 __version__ = "0.0.23"
 

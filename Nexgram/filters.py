@@ -55,18 +55,18 @@ def check(val, id1, id2):
   val = int(val) if isinstance(val, (int, str)) and str(val).lstrip('-').isdigit() else val
   return val == id1 or val == id2
 
-def user(ids):
+def user(ids_list):
   async def wrapper(_, __, m):
-    ids = [ids] if not isinstance(ids, list) else ids
+    ids = [ids_list] if not isinstance(ids_list, list) else ids_list
     urls = ["http://t.me/", "https://t.me/", "www.t.me/", "@", "http://telegram.dog/", "https://telegram.dog/"]
     return any(check(i, m.from_user.id, (m.from_user.username or "").lower()) or 
                any(i.replace(x, "").lower() == (m.from_user.username or "").lower() for x in urls)
                for i in ids)
   return create(wrapper)
 
-def chat(ids):
+def chat(ids_list):
   async def wrapper(_, __, m):
-    ids = [ids] if not isinstance(ids, list) else ids
+    ids = [ids_list] if not isinstance(ids_list, list) else ids_list
     urls = ["http://t.me/", "https://t.me/", "www.t.me/", "@", "http://telegram.dog/", "https://telegram.dog/"]
     return any(check(c, m.chat.id, (m.chat.username or "").lower()) or 
                any(c.replace(x, "").lower() == (m.chat.username or "").lower() for x in urls)

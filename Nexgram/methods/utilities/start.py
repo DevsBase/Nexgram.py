@@ -10,7 +10,7 @@ class Start:
     webhook_url: str = None,
     webhook_port: int = None,
   ):
-    api, url = self.api, self.ApiUrl+"getMe"
+    api, url, log = self.api, self.ApiUrl+"getMe", self.log
     if mode.lower() not in modes:
       raise ValueError(f"Mode must be 'polling' or 'webhook' not '{mode}'")
     self.mode = mode.lower()

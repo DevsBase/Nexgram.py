@@ -1,10 +1,11 @@
 from aiohttp import web
 
 class Webhook:
-  async def _takeCareWebhook(self, request):
+  async def takeCareWebhook(self, request):
     data = request.json()
     self.log.info(f"Got webhook: {data}")
     return web.json_response({"status": "ok"})
+  
   async def createWebhook(self):
     if not self.connected:
       raise ConnectionError("Client is not connected. please start the client.")

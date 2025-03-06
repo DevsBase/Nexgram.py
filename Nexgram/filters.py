@@ -44,7 +44,7 @@ def command(cmd, prefix=['/']):
     if not isinstance(message, Message): return
     cmd_list = cmd if isinstance(cmd, list) else [str(cmd)]
     for xx in cmd_list:
-      if message.text:
+      if hasattr(message, 'text'):
         for x in prefix:
           return str(message.text).lower().startswith(x + xx.lower())
 

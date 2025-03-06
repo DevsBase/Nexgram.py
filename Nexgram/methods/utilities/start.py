@@ -6,7 +6,7 @@ modes = ['polling', 'webhook', 'none']
 class Start:
   async def start(
     self,
-    mode: str = 'polling'
+    mode: str = 'polling',
     webhook_url: str = None,
     webhook_port: int = None,
   ):

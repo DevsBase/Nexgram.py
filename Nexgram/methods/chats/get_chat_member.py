@@ -1,4 +1,5 @@
 from Nexgram.types import User
+from Nexgram.errors import *
 
 class GetChatMember:
   async def get_chat_member(self, chat_id: int, user_id: int):
@@ -16,3 +17,9 @@ class GetChatMember:
         is_bot=user.get('is_bot'),
       )
     return False
+    if not r.get('ok') and r.get('error_code'):
+      error_type = r.get('description')
+      error = r.get('description').split(':', 1)[1]
+      if 'bad request' in error_type.lower():
+        raise BadRequest(error)
+    # incompleted

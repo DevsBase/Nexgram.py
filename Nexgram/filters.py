@@ -56,12 +56,10 @@ def user(id):
   
 def chat(id):
   async def wrapper(_, __, m):
-    if isinstance(id, (int, str)) and str(id).isdigit():
+    if isinstance(id, (int, str)) and str(id).replace('-', '').isdigit():
       return m.chat.id == int(id)
     if isinstance(id, list):
       return any(chat(c)(_, __, m) for c in id)
-    if isinstance(id, str):
-      urls = ["http://t.me/", "https://t.me/", "www.t.me/", "@", "http://telegram.dog/", "https://telegram.dog/"]
-      return any(id.replace(x, "").lower() == (m.chat.username or "").lower() for x in urls)
-    return False
+    urls = ["http://t.me/", "https://t.me/", "www.t.me/", "@", "http://telegram.dog/", "https://telegram.dog/"]
+    return any(id.replace(x, "").lower() == (m.chat.username or "").lower() for x in urls)
   return create(wrapper)

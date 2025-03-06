@@ -16,7 +16,7 @@ class Start:
       raise ValueError(f"Mode must be 'polling' or 'webhook' not '{mode}'")
     self.mode = mode.lower()
     if self.plugins:
-      import_all(self.plugins.replace('/', '.')
+      import_all(self.plugins)
     r = await api.get(url)
     if r.get("ok"):
       self.connected = True

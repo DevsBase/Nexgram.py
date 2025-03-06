@@ -1,12 +1,12 @@
-import importlib.util
+import importlib
 import os
 
-def import_all(folder_path):
+def import_all(package_path):
+  package_name = package_path.replace("/", ".")  
+  package = importlib.import_module(package_name)
+  folder_path = os.path.dirname(package.__file__)
+
   for file in os.listdir(folder_path):
     if file.endswith(".py") and file != "__init__.py":
-      module_name = file[:-3]
-      module_path = os.path.join(folder_path, file)
-      spec = importlib.util.spec_from_file_location(module_name, module_path)
-      module = importlib.util.module_from_spec(spec)
-      spec.loader.exec_module(module)
-  return 
+      module_name = f"{package_name}.{file[:-3]}"
+      importlib.import_module(module_name)

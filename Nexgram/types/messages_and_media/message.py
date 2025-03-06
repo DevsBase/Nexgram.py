@@ -41,9 +41,8 @@ class Message:
     if caption: self.caption = caption
     if text:
       self.text = text
-      self.command = extract_command(tex)
-    self.client = client
-  
+      self.command = extract_command(text)
+    self.client = client  
   def __repr__(self):
     from Nexgram import Client
     mf = {"client"}

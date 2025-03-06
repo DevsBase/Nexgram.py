@@ -42,12 +42,12 @@ text = create(lambda _, message: message.text)
 def command(cmd, prefix=['/']):
   async def wrapper(_, __, message):
     if not isinstance(message, Message): return
-    if not isinstance(cmd, list):
-      cmd = [str(cmd)]
-    for xx in cmd:
+    cmd_list = cmd if isinstance(cmd, list) else [str(cmd)]
+    for xx in cmd_list:
       if message.text:
         for x in prefix:
-          return str(message.text).lower().startswith(x+xx.lower())
+          return str(message.text).lower().startswith(x + xx.lower())
+
   return create(wrapper)
   
 urls = ["http://t.me/", "https://t.me/", "www.t.me/", "@", "http://telegram.dog/", "https://telegram.dog/"]

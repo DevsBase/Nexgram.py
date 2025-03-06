@@ -29,8 +29,7 @@ class Client(Methods):
     self.log = log
     self.mode = None
     clients.append(self)
-    if plugins:
-      import_all(plugins)
+    self.plugins = plugins
     # Decorators --
     self.on_message_listeners = {}
     self.on_disconnect_listeners = {}

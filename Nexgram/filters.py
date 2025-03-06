@@ -51,27 +51,24 @@ def command(cmd, prefix=['/']):
     return p and (m.text[len(p):] in cmd if isinstance(cmd, list) else m.text[len(p):] == cmd)
   return create(wrapper)
   
-def inn(one, two, three=None):
-  if isinstance(id, (int, str)) and str(id).isdigit():
-    one = int(one)    
-  return one == two or one == three
-  
-def user(id):
+def check(val, id1, id2):
+  val = int(val) if isinstance(val, (int, str)) and str(val).lstrip('-').isdigit() else val
+  return val == id1 or val == id2
+
+def user(ids):
   async def wrapper(_, __, m):
-    if isinstance(id, (int, str)) and str(id).isdigit():
-      return m.from_user.id == int(id)
-    elif isinstance(id, list):
-      return any(inn(u, m.from_user.id, m.from_user.username) for u in id)
+    ids = [ids] if not isinstance(ids, list) else ids
     urls = ["http://t.me/", "https://t.me/", "www.t.me/", "@", "http://telegram.dog/", "https://telegram.dog/"]
-    return any(id.replace(x, "").lower() == m.from_user.username.lower() for x in urls)
+    return any(check(i, m.from_user.id, (m.from_user.username or "").lower()) or 
+               any(i.replace(x, "").lower() == (m.from_user.username or "").lower() for x in urls)
+               for i in ids)
   return create(wrapper)
-  
-def chat(id):
+
+def chat(ids):
   async def wrapper(_, __, m):
-    if isinstance(id, (int, str)) and str(id).replace('-', '').isdigit():
-      return m.chat.id == int(id)
-    elif isinstance(id, list):
-      return any(inn(c, m.chat.id, m.chat.username) for c in id)
+    ids = [ids] if not isinstance(ids, list) else ids
     urls = ["http://t.me/", "https://t.me/", "www.t.me/", "@", "http://telegram.dog/", "https://telegram.dog/"]
-    return any(id.replace(x, "").lower() == (m.chat.username or "").lower() for x in urls)
+    return any(check(c, m.chat.id, (m.chat.username or "").lower()) or 
+               any(c.replace(x, "").lower() == (m.chat.username or "").lower() for x in urls)
+               for c in ids)
   return create(wrapper)

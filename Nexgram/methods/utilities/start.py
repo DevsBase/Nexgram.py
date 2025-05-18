@@ -19,7 +19,8 @@ class Start:
       import_all(self.plugins)
     r = await api.get(url)
     if r.get("ok"):
-      self.connected = True,r = r["result"]
+      self.connected = True
+      r=r["result"]
       self.me = User(client=self,id=r['id'],first_name=r['first_name'],username=r['username'],is_self=True,is_bot=True)
       log.info(f"Client connected as {self.me.first_name} (@{self.me.username})")
       if mode=='polling' and True:

@@ -1,2 +1,0 @@
-class PollingAlreadyStartedError(Exception):
-  pass

@@ -19,10 +19,10 @@ async def idle():
 
   for s in (SIGINT, SIGTERM, SIGABRT):
     signal_fn(s, signal_handler)
-  while True:
+  while (True):
     task = asyncio.create_task(asyncio.sleep(600))
     try: await task
     except asyncio.CancelledError:
-      for x in clients:
-        await x.stop()
+      for client in clients:
+        await client.stop()
       break

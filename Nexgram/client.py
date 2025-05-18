@@ -16,7 +16,21 @@ class Client(Methods):
     name: str,
     bot_token: str,
     plugins: str = None,
+    avoid_connection_error_stop: bool = True,
   ):
+    """
+    Nexgram.py - Client
+    
+    Parameters:
+    - name: str (string)
+    -- Name of your client.
+    - bot_token: str (string)
+    -- BotToken is used to connect with your bot. You can create a bot and get its token from t.me/BotFather.
+    - plugins: str (string)
+    -- path of your plugins folder. It'll run every python files in that folder so you don't need to import everything one by one.
+    - avoid_connection_error_stop: bool (boolean)
+    -- If its True your client won't stop because of connection errors it'll log it and retry polling.
+    """
     self.name = name
     self.bot_token = bot_token
     self.connected = False

@@ -41,13 +41,14 @@ text = create(lambda _, message: hasattr(message, 'text'))
 
 def command(cmd, prefix=['/']):
   async def wrapper(_, __, message):
-    if not isinstance(message, Message): return
-    cmd_list = cmd if isinstance(cmd, list) else [str(cmd)]
-    for xx in cmd_list:
-      if hasattr(message, 'text'):
-        for x in prefix:
-          return str(message.text).lower().startswith(x + xx.lower())
-
+    if not isinstance(message, Message):
+      return
+    bot_username = message.client.me.username.lower()
+    text = message.text.lower().split(" ", 1)[0]
+    for c in (cmd if isinstance(cmd, list) else [str(cmd)]):
+      for p in prefix:
+        if text == f"{p}{c.lower()}" or text == f"{p}{c.lower()}@{bot_username}":
+          return True
   return create(wrapper)
   
 urls = ["http://t.me/", "https://t.me/", "www.t.me/", "@", "http://telegram.dog/", "https://telegram.dog/"]

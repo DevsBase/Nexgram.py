@@ -7,7 +7,7 @@ class StartPolling:
       raise ConnectionError("Client is not connected. Please connect the client and start polling.")
     elif self.polling: raise PollingAlreadyStartedError("Polling already started, why you trying again and again? didn't you receive any updates?")
     self.polling, log = True, self.log
-    log.info("Nexgram.py - polling started!")
+    log.info("Polling is started! (use webhook mode for better speed)!")
     first_start = True
     max_retry, retry = 25, 1
     while self.polling:
@@ -24,7 +24,7 @@ class StartPolling:
           err = updates.get('description')
           code = int(updates.get('error_code'))
           if code == 401:
-            raise BadRequest(f"Telegram says: [{code}_{err.upper()}] - The bot token you provied is incorrect or revoked (caused by 'Client.start_polling')")
+            raise BadRequest(f"Telegram says: [{code}_{err.upper()}] - The bot token you provied is invalid or revoked (caused by 'Client.start_polling')")
       except Exception as e:
         if self.avoid_connection_error_stop and retry > max_retry:
           log.info("Stopping clients.")

@@ -41,7 +41,7 @@ text = create(lambda _, message: hasattr(message, 'text'))
 
 def command(cmd, prefix=['/']):
   async def wrapper(_, __, message):
-    if not isinstance(message, Message):
+    if not isinstance(message, Message) and not hasattr(message,'text'):
       return
     bot_username = message.client.me.username.lower()
     text = message.text.lower().split(" ", 1)[0]

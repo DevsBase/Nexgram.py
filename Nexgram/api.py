@@ -7,7 +7,6 @@ class Api:
         if need_text:
           return await ily.text()
         else: return await ily.json()
-
   async def get(self, url, params=None, need_text=False):
     async with aiohttp.ClientSession() as mano:
       async with mano.get(url=url, params=params) as ily:

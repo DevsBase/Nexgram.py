@@ -23,7 +23,7 @@ class Start:
       r=r["result"]
       self.me = User(client=self,id=r['id'],first_name=r['first_name'],username=r['username'],is_self=True,is_bot=True)
       log.info(f"Client connected as {self.me.first_name} (@{self.me.username})")
-      if mode=='polling' and True:
+      if mode=='polling':
         await api.post(self.ApiUrl+"deleteWebhook")
         asyncio.create_task(self.start_polling())
       elif mode == "webhook":
@@ -31,8 +31,7 @@ class Start:
           raise ValueError("you selected 'webhook' mode. then where is url & port? you should provid it.")
         if webhook_url.endswith('/'): webhook_url = webhook_url[:-1]
         self.webhook_url, self.webhook_port = webhook_url, webhook_port
-        loop = asyncio.get_event_loop()
-        loop.create_task(self.createWebhook())
+        asyncio.create_task(self.createWebhook())
       else:
         raise ValueError(f"Invalid start mode-> {mode}, currently 'polling' and 'webhook' are only supported.")
       return self.me

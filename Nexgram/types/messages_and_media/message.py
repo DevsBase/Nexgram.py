@@ -47,7 +47,7 @@ class Message:
     self.client = client  
   def __repr__(self):
     from Nexgram import Client
-    mf = {"client"}
+    mf = {"client","loading","loading_text"}
     def clean(obj):
       if isinstance(obj, Client):
         return None
@@ -61,23 +61,22 @@ class Message:
         }
       return obj
     return json.dumps(clean(self), indent=2, ensure_ascii=False).replace("\\n", "\n")    
-  async def reply(self, text: str, reply_markup = None,parse_mode: str = None):
+  await def reply(self,*args):
+    await self.reply_text(*args)
+  async def reply_text(self, text: str, reply_markup = None,parse_mode: str = None):
     client = self.client
-    return await client.send_message(
-      chat_id=self.chat.id,
-      text=text,
-      reply_markup=reply_markup,
-      reply_to_message_id=self.id,
-      parse_mode=parse_mode,
-    )
+    return await client.send_message(chat_id=self.chat.id,text=text,reply_markup=reply_markup,reply_to_message_id=self.id,parse_mode=parse_mode)
   async def delete(self):
     client, api, url = self.client, self.client.api, self.client.ApiUrl
-    return await api.post(url+"deleteMessage", {"chat_id": self.chat.id, "message_id": self.id})
-  
+    return await api.post(url+"deleteMessage", {"chat_id": self.chat.id, "message_id": self.id})  
   async def forward(self, chat_id):
     client, api, url = self.client, self.client.api, self.client.ApiUrl
-    return await client.forward_messages(chat_id, self.chat.id, self.id)
-  
+    return await client.forward_messages(chat_id, self.chat.id, self.id)  
   async def copy(self, chat_id, caption=None, parse_mode=None):
     client, api, url = self.client, self.client.api, self.client.ApiUrl
     return await client.copy_messages(chat_id, self.chat.id, self.id, caption=caption, parse_mode=parse_mode)
+  async def edit(self,*args):
+    await self.edit_text(*args)
+  async def edit_text(self,):
+    pass
+# i should finish this asap    

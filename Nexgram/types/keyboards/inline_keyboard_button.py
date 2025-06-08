@@ -28,4 +28,3 @@ class InlineKeyboardButton:
     else: raise Exception("?.")
   def __repr__(self):
     return json.dumps(self.__dict__, indent=2, ensure_ascii=False)
-    

@@ -14,8 +14,8 @@ class Dispatch:
   
   async def dispatch_update(self, update):
     log = self.log
-    for gf in self.on_raw_update_listeners:
-      asyncio.create_task(gf(update))
+    for func in self.on_raw_update_listeners:
+      asyncio.create_task(func(update))
     if update.get('message'):
       update_type, src = "message", self.on_message_listeners
       await self.__dispatch_helper(src=src,update=update,update_type=update_type)

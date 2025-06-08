@@ -61,7 +61,7 @@ class Message:
         }
       return obj
     return json.dumps(clean(self), indent=2, ensure_ascii=False).replace("\\n", "\n")    
-  await def reply(self,*args):
+  async def reply(self,*args):
     await self.reply_text(*args)
   async def reply_text(self, text: str, reply_markup = None,parse_mode: str = None):
     client = self.client
